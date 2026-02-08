@@ -136,7 +136,135 @@
             align-items: center;
             justify-content: center;
         }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .img-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center;
+        }
+
+        /* Carousel para cores - AJUSTADO PARA MELHOR ENQUADRAMENTO */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%; /* Ajusta o enquadramento para focar na bolsa */
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .carousel-btn {
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .carousel-btn:hover {
+            background: var(--neon-pink);
+            transform: scale(1.1);
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: var(--neon-pink);
+            transform: scale(1.2);
+        }
+
+        .color-selector {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .color-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+
+        .color-option.selected {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .color-option::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
 
         .info-box { padding: 20px; }
         .price { color: var(--neon-blue); font-family: 'Syncopate'; font-size: 1.1rem; }
@@ -333,6 +461,30 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+
+        /* Estilos para seleção de cor no carrinho */
+        .cart-item-color {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .cart-color-preview {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #fff;
+        }
+
+        .color-badge {
+            font-size: 0.6rem;
+            background: var(--neon-pink);
+            color: #000;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-family: 'Syncopate';
+        }
     </style>
 </head>
 <body>
@@ -443,22 +595,31 @@
         <div class="footer-grid">
             <div>
                 <h3 style="font-family:'Syncopate'; font-size:0.8rem; margin-bottom:20px;">DÚVIDAS FREQUENTES</h3>
-                <div class="faq-item" onclick="this.classList.toggle('active')">
-                    <div class="faq-question">COMO RECEBO O LINK DE PAGAMENTO? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">COMO FUNCIONA A COMPRA PELO SITE? <i class="fas fa-chevron-down"></i></div>
                     <div class="faq-answer">
-                        1. Envie seu pedido pelo WhatsApp<br>
-                        2. Nós respondemos com link de pagamento do Mercado Pago<br>
-                        3. Você paga e envia comprovante<br>
-                        4. Separamos seu pedido em até 24h
+                        1. Escolha seus produtos e adicione ao carrinho<br>
+                        2. Preencha seus dados de entrega<br>
+                        3. Envie o pedido pelo WhatsApp<br>
+                        4. Receba o link de pagamento do Mercado Pago<br>
+                        5. Pague e envie o comprovante
                     </div>
                 </div>
-                <div class="faq-item" onclick="this.classList.toggle('active')">
-                    <div class="faq-question">TEM RETIRADA NO LOCAL? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">QUAIS SÃO AS FORMAS DE PAGAMENTO? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Aceitamos pagamento via Mercado Pago, que inclui cartão de crédito, débito e Pix. Você receberá um link seguro para realizar o pagamento após enviar seu pedido.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">POSSO RETIRAR NO LOCAL? <i class="fas fa-chevron-down"></i></div>
                     <div class="faq-answer">Sim! Oferecemos retirada na Rua Olinda 660 - Brasilândia - Franca/SP sem custo adicional. Retirada a partir das 18:00h. Selecione "Retirar no Local" no carrinho.</div>
                 </div>
-                <div class="faq-item" onclick="this.classList.toggle('active')">
-                    <div class="faq-question">QUANTO TEMPO PARA RESPOSTA? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Respondemos em até 15 minutos durante horário comercial (9h-18h). Fora deste horário, respondemos no próximo dia útil.</div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">QUANTO TEMPO PARA ENTREGA? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Para retirada: disponível no mesmo dia após as 18h. Para entrega: 3-10 dias úteis dependendo da região. Franca e região: 1-2 dias úteis.</div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">PRECISO PREENCHER TODOS OS DADOS DE ENDEREÇO? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Sim, para entrega é necessário preencher: CEP, Rua, Número, Bairro, Cidade e Estado. O complemento é opcional. Para retirada, apenas os dados pessoais são necessários.</div>
                 </div>
             </div>
             <div style="text-align: right;">
@@ -497,7 +658,7 @@
         <!-- Formulário de Dados -->
         <div style="margin-bottom: 20px;">
             <input type="text" id="clienteNome" class="cart-input" placeholder="Nome Completo *" required>
-            <input type="email" id="clienteEmail" class="cart-input" placeholder="Email *" required>
+            <input type="email" id="clienteEmail" class="cart-input" placeholder="E-mail *" required>
             <input type="text" id="clienteWhats" class="cart-input" placeholder="WhatsApp (com DDD) *" required>
             
             <div class="cart-row">
@@ -505,12 +666,16 @@
                 <button onclick="calcularFrete()" style="flex:1; padding:10px; background:var(--neon-blue); border:none; border-radius:8px; color:#000; font-family:'Syncopate'; font-size:0.7rem; cursor:pointer;">CALCULAR FRETE</button>
             </div>
             
-            <input type="text" id="clienteEnd" class="cart-input" placeholder="Endereço (deixe em branco para retirada)">
-            <input type="text" id="clienteNum" class="cart-input" placeholder="Número">
-            <input type="text" id="clienteComplemento" class="cart-input" placeholder="Complemento">
-            <input type="text" id="clienteBairro" class="cart-input" placeholder="Bairro" readonly>
-            <input type="text" id="clienteCidade" class="cart-input" placeholder="Cidade" readonly>
-            <input type="text" id="clienteEstado" class="cart-input" placeholder="Estado" readonly>
+            <input type="text" id="clienteEnd" class="cart-input" placeholder="Rua *">
+            <div class="cart-row">
+                <input type="text" id="clienteNum" class="cart-input" placeholder="Número *" style="flex:1;">
+                <input type="text" id="clienteComplemento" class="cart-input" placeholder="Complemento" style="flex:2;">
+            </div>
+            <input type="text" id="clienteBairro" class="cart-input" placeholder="Bairro *" readonly>
+            <div class="cart-row">
+                <input type="text" id="clienteCidade" class="cart-input" placeholder="Cidade *" readonly style="flex:2;">
+                <input type="text" id="clienteEstado" class="cart-input" placeholder="Estado *" readonly style="flex:1;">
+            </div>
         </div>
 
         <!-- Itens do Carrinho -->
@@ -542,10 +707,22 @@
         // =============================================
         // CONFIGURAÇÕES
         // =============================================
-        const WHATSAPP_NUMBER = "5516994319916"; // SEU WHATSAPP PARA RECEBER PEDIDOS
+        const WHATSAPP_NUMBER = "5516994319916";
         const LOJA_CEP = "14400000";
         const MERCADO_PAGO_LINK_BASE = "https://link.mercadopago.com.br/ladiesboutiqueof";
         
+        // Configurações dos Correios - VALORES ATUALIZADOS 2024
+        const CORREIOS_CONFIG = {
+            altura: 10, // cm
+            largura: 20, // cm
+            comprimento: 20, // cm
+            peso: 1, // kg
+            formato: 1, // 1 = Caixa/pacote
+            diametro: 0,
+            maoPropria: "N",
+            avisoRecebimento: "N"
+        };
+
         // =============================================
         // VARIÁVEIS GLOBAIS
         // =============================================
@@ -554,6 +731,7 @@
         let freteSelecionado = null;
         let totalPedido = 0;
         let ultimoPedidoNumero = null;
+        let carouselStates = {}; // Para controlar o estado de cada carrossel
 
         // =============================================
         // PRODUTOS
@@ -568,7 +746,20 @@
             { id: 7, nome: "Bolsa Elisa", preco: 39.90, peso: 0.5, foto: "1IjVr0XIoVXfll_4tJsTltlFM972FmM7Z" },
             { id: 8, nome: "Bolsa Gaby", preco: 31.49, peso: 0.4, foto: "1S_C8LLvtiGcJQ6zhpSHWqvst4FYD2yeg", esgotado: true },
             { id: 9, nome: "Bolsa Griff", preco: 29.49, peso: 0.5, foto: "1um_ruVTfOc64ixM92LC_gUiTrH8Zvt3a" },
-            { id: 10, nome: "Bolsa Helena", preco: 39.90, peso: 0.4, foto: "1-zsY9LAwdd4jVvZk2BaEMGAbXm3CFm4M" },
+            { 
+                id: 10, 
+                nome: "Bolsa Helena", 
+                preco: 39.90, 
+                peso: 0.4, 
+                variacoes: [
+                    { cor: "Preto", foto: "1-zsY9LAwdd4jVvZk2BaEMGAbXm3CFm4M", codigoCor: "#000000" },
+                    { cor: "Branco", foto: "1TriUSTWPtfpairM-s8CldkMMJiRch5o-", codigoCor: "#FFFFFF" },
+                    { cor: "Marfim", foto: "1b1cSE_mkctKqtJVdrH5vZJNCnRc0aGKx", codigoCor: "#FFF8E7" },
+                    { cor: "Nude", foto: "1gbTb37g3DXutv1B_ZFpGoV68hxZIEaLT", codigoCor: "#E3BC9A" },
+                    { cor: "Café", foto: "1kNKR5V6Pts2gg9konOVf9mFaQawAfAIp", codigoCor: "#6F4E37" },
+                    { cor: "Caramelo", foto: "1Gg1SYMySwtSgeF_6bUUlelFG9A39HGie", codigoCor: "#AF6E4D" }
+                ]
+            },
             { id: 11, nome: "Bolsa Hello", preco: 29.49, peso: 0.5, foto: "1AEFkib7dzs1bZPfqLo663aBUmY7FOcLy" },
             { id: 12, nome: "Bolsa Lais", preco: 39.90, peso: 0.4, foto: "1kDFxzSKZn1ljFXx1cEZHt1b-8dSFXlGZ" },
             { id: 13, nome: "Bolsa Lari", preco: 39.90, peso: 0.5, foto: "1DPHD_Khcc0hgFumV_UR8I7mRT0cbAvRp" },
@@ -581,6 +772,13 @@
         ];
 
         // =============================================
+        // FUNÇÃO PARA TOGGLE FAQ
+        // =============================================
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+        }
+
+        // =============================================
         // INICIALIZAÇÃO
         // =============================================
         document.addEventListener('DOMContentLoaded', function() {
@@ -588,21 +786,26 @@
             const grid = document.getElementById('gridLoja');
             produtos.forEach((p, index) => {
                 const isEsgotado = p.esgotado || false;
-                const btnHTML = isEsgotado 
-                    ? `<button class="btn-esgotado" disabled>ESGOTADO</button>`
-                    : `<button onclick="adicionarAoCarrinho(${p.id})" class="add-btn">ADICIONAR</button>`;
                 
-                grid.innerHTML += `
-                    <div class="product-card animate__animated animate__fadeInUp ${isEsgotado ? 'esgotado' : ''}" style="animation-delay:${index*0.05}s">
-                        <div class="img-box">
-                            <img src="https://drive.google.com/thumbnail?id=${p.foto}&sz=w1000" alt="${p.nome}" onerror="this.src='https://placehold.co/400x500/111/fff?text=${p.nome}'">
-                        </div>
-                        <div class="info-box">
-                            <h3 style="font-family:'Syncopate'; font-size:0.65rem; margin-bottom:5px;">${p.nome}</h3>
-                            <span class="price">R$ ${p.preco.toFixed(2)}</span>
-                            ${btnHTML}
-                        </div>
-                    </div>`;
+                if (p.id === 10) { // Bolsa Helena com variações
+                    grid.innerHTML += criarProdutoComVariacoes(p, index);
+                } else {
+                    const btnHTML = isEsgotado 
+                        ? `<button class="btn-esgotado" disabled>ESGOTADO</button>`
+                        : `<button onclick="adicionarAoCarrinho(${p.id})" class="add-btn">ADICIONAR</button>`;
+                    
+                    grid.innerHTML += `
+                        <div class="product-card animate__animated animate__fadeInUp ${isEsgotado ? 'esgotado' : ''}" style="animation-delay:${index*0.05}s">
+                            <div class="img-box">
+                                <img src="https://drive.google.com/thumbnail?id=${p.foto}&sz=w1000" alt="${p.nome}" onerror="this.src='https://placehold.co/400x500/111/fff?text=${p.nome}'">
+                            </div>
+                            <div class="info-box">
+                                <h3 style="font-family:'Syncopate'; font-size:0.65rem; margin-bottom:5px;">${p.nome}</h3>
+                                <span class="price">R$ ${p.preco.toFixed(2)}</span>
+                                ${btnHTML}
+                            </div>
+                        </div>`;
+                }
             });
 
             // Máscaras para os inputs
@@ -623,7 +826,175 @@
             // CEP não é obrigatório mais (pode ser retirada)
             document.getElementById('clienteCEP').required = false;
             document.getElementById('clienteNum').required = false;
+
+            // Inicializar botões de FAQ
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.onclick = function() {
+                    this.classList.toggle('active');
+                };
+            });
+
+            // Inicializar carrosséis
+            setTimeout(() => {
+                produtos.forEach(p => {
+                    if (p.id === 10) {
+                        inicializarCarrossel(p.id);
+                    }
+                });
+            }, 100);
         });
+
+        // =============================================
+        // FUNÇÃO PARA CRIAR PRODUTO COM VARAIAÇÕES
+        // =============================================
+        function criarProdutoComVariacoes(produto, index) {
+            const carouselId = `carousel-${produto.id}`;
+            
+            let html = `
+                <div class="product-card animate__animated animate__fadeInUp" style="animation-delay:${index*0.05}s">
+                    <div class="img-box">
+                        <div class="carousel-container" id="${carouselId}">
+                            <div class="carousel-track">`;
+            
+            // Adicionar slides para cada variação
+            produto.variacoes.forEach((variacao, i) => {
+                html += `
+                    <div class="carousel-slide">
+                        <img src="https://drive.google.com/thumbnail?id=${variacao.foto}&sz=w1000" alt="${produto.nome} - ${variacao.cor}" 
+                             onerror="this.src='https://placehold.co/400x500/111/fff?text=${produto.nome}'"
+                             loading="lazy">
+                    </div>`;
+            });
+            
+            html += `
+                            </div>
+                            <div class="carousel-nav">
+                                <button class="carousel-btn prev-btn" onclick="prevSlide(${produto.id})">❮</button>
+                                <button class="carousel-btn next-btn" onclick="nextSlide(${produto.id})">❯</button>
+                            </div>
+                            <div class="carousel-dots" id="dots-${produto.id}"></div>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <h3 style="font-family:'Syncopate'; font-size:0.65rem; margin-bottom:5px;">${produto.nome}</h3>
+                        <div class="color-selector" id="color-selector-${produto.id}">`;
+            
+            // Adicionar opções de cor
+            produto.variacoes.forEach((variacao, i) => {
+                html += `
+                    <div class="color-option" style="background-color:${variacao.codigoCor};" 
+                         onclick="selectColor(${produto.id}, ${i})"
+                         title="${variacao.cor}"
+                         data-index="${i}">
+                    </div>`;
+            });
+            
+            html += `
+                        </div>
+                        <span class="price">R$ ${produto.preco.toFixed(2)}</span>
+                        <button onclick="adicionarAoCarrinho(${produto.id})" class="add-btn">ADICIONAR</button>
+                    </div>
+                </div>`;
+            
+            return html;
+        }
+
+        // =============================================
+        // INICIALIZAR CARROSSEL
+        // =============================================
+        function inicializarCarrossel(produtoId) {
+            const produto = produtos.find(p => p.id === produtoId);
+            if (!produto || !produto.variacoes) return;
+            
+            const dotsContainer = document.getElementById(`dots-${produtoId}`);
+            if (!dotsContainer) return;
+            
+            // Criar dots
+            dotsContainer.innerHTML = '';
+            produto.variacoes.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => selectColor(produtoId, i);
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Selecionar primeira cor
+            selectColor(produtoId, 0);
+        }
+
+        // =============================================
+        // FUNÇÕES DO CARROSSEL DE CORES
+        // =============================================
+        function nextSlide(produtoId) {
+            const produto = produtos.find(p => p.id === produtoId);
+            if (!produto || !produto.variacoes) return;
+            
+            const carousel = document.getElementById(`carousel-${produtoId}`);
+            if (!carousel) return;
+            
+            const track = carousel.querySelector('.carousel-track');
+            const slides = track.querySelectorAll('.carousel-slide');
+            const currentSlide = carouselStates[produtoId] || 0;
+            const nextSlide = (currentSlide + 1) % slides.length;
+            
+            track.style.transform = `translateX(-${nextSlide * 100}%)`;
+            carouselStates[produtoId] = nextSlide;
+            
+            updateCarouselDots(produtoId, nextSlide);
+            updateColorSelection(produtoId, nextSlide);
+        }
+
+        function prevSlide(produtoId) {
+            const produto = produtos.find(p => p.id === produtoId);
+            if (!produto || !produto.variacoes) return;
+            
+            const carousel = document.getElementById(`carousel-${produtoId}`);
+            if (!carousel) return;
+            
+            const track = carousel.querySelector('.carousel-track');
+            const slides = track.querySelectorAll('.carousel-slide');
+            const currentSlide = carouselStates[produtoId] || 0;
+            const prevSlide = (currentSlide - 1 + slides.length) % slides.length;
+            
+            track.style.transform = `translateX(-${prevSlide * 100}%)`;
+            carouselStates[produtoId] = prevSlide;
+            
+            updateCarouselDots(produtoId, prevSlide);
+            updateColorSelection(produtoId, prevSlide);
+        }
+
+        function selectColor(produtoId, colorIndex) {
+            const produto = produtos.find(p => p.id === produtoId);
+            if (!produto || !produto.variacoes) return;
+            
+            const carousel = document.getElementById(`carousel-${produtoId}`);
+            if (!carousel) return;
+            
+            const track = carousel.querySelector('.carousel-track');
+            track.style.transform = `translateX(-${colorIndex * 100}%)`;
+            carouselStates[produtoId] = colorIndex;
+            
+            updateCarouselDots(produtoId, colorIndex);
+            updateColorSelection(produtoId, colorIndex);
+        }
+
+        function updateCarouselDots(produtoId, activeIndex) {
+            const dotsContainer = document.getElementById(`dots-${produtoId}`);
+            if (!dotsContainer) return;
+            
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeIndex);
+            });
+        }
+
+        function updateColorSelection(produtoId, activeIndex) {
+            const colorOptions = document.querySelectorAll(`#color-selector-${produtoId} .color-option`);
+            colorOptions.forEach((option, index) => {
+                option.classList.toggle('selected', index === activeIndex);
+            });
+        }
 
         // =============================================
         // FUNÇÕES DO CARRINHO
@@ -641,11 +1012,36 @@
                 return;
             }
             
-            const existe = carrinho.find(item => item.id === id);
-            if(existe) {
-                existe.qtd++;
+            // Para produtos com variações (Bolsa Helena)
+            if (p.id === 10) {
+                const currentSlide = carouselStates[p.id] || 0;
+                const selectedColor = p.variacoes[currentSlide];
+                
+                const existe = carrinho.find(item => 
+                    item.id === id && 
+                    item.cor === selectedColor.cor
+                );
+                
+                if(existe) {
+                    existe.qtd++;
+                } else {
+                    carrinho.push({
+                        ...p, 
+                        qtd: 1,
+                        cor: selectedColor.cor,
+                        codigoCor: selectedColor.codigoCor,
+                        foto: selectedColor.foto,
+                        nomeCompleto: `${p.nome} - ${selectedColor.cor}`
+                    });
+                }
             } else {
-                carrinho.push({...p, qtd: 1});
+                // Produtos sem variações
+                const existe = carrinho.find(item => item.id === id);
+                if(existe) {
+                    existe.qtd++;
+                } else {
+                    carrinho.push({...p, qtd: 1, nomeCompleto: p.nome});
+                }
             }
             
             atualizarCarrinho();
@@ -653,12 +1049,12 @@
             toggleCart();
         }
 
-        function mudarQtd(id, delta) {
-            const item = carrinho.find(i => i.id === id);
+        function mudarQtd(id, cor, delta) {
+            const item = carrinho.find(i => i.id === id && i.cor === cor);
             if(item) {
                 item.qtd += delta;
                 if(item.qtd <= 0) {
-                    carrinho = carrinho.filter(i => i.id !== id);
+                    carrinho = carrinho.filter(i => !(i.id === id && i.cor === cor));
                 }
                 atualizarCarrinho();
             }
@@ -674,20 +1070,47 @@
                 container.innerHTML = '<p style="text-align:center; color:#888; font-size:0.8rem;">Carrinho vazio</p>';
             } else {
                 carrinho.forEach(item => {
-                    subtotal += (item.preco * item.qtd);
+                    const itemTotal = (item.preco * item.qtd);
+                    subtotal += itemTotal;
                     totalItens += item.qtd;
-                    container.innerHTML += `
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:0.75rem;">
-                            <div style="flex:1;">
-                                <span>${item.nome}</span><br>
-                                <span style="color:var(--neon-pink)">R$ ${(item.preco * item.qtd).toFixed(2)}</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <button class="qty-btn" onclick="mudarQtd(${item.id}, -1)">-</button>
-                                <span>${item.qtd}</span>
-                                <button class="qty-btn" onclick="mudarQtd(${item.id}, 1)">+</button>
-                            </div>
-                        </div>`;
+                    
+                    const displayName = item.nomeCompleto || item.nome;
+                    
+                    if (item.cor) {
+                        // Produto com cor
+                        container.innerHTML += `
+                            <div style="margin-bottom:12px; font-size:0.75rem;">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div style="flex:1;">
+                                        <span>${displayName}</span>
+                                        <div class="cart-item-color">
+                                            <div class="cart-color-preview" style="background-color:${item.codigoCor}"></div>
+                                            <span class="color-badge">${item.cor}</span>
+                                        </div>
+                                        <span style="color:var(--neon-pink)">R$ ${itemTotal.toFixed(2)}</span>
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <button class="qty-btn" onclick="mudarQtd(${item.id}, '${item.cor}', -1)">-</button>
+                                        <span>${item.qtd}</span>
+                                        <button class="qty-btn" onclick="mudarQtd(${item.id}, '${item.cor}', 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>`;
+                    } else {
+                        // Produto sem cor
+                        container.innerHTML += `
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:0.75rem;">
+                                <div style="flex:1;">
+                                    <span>${displayName}</span><br>
+                                    <span style="color:var(--neon-pink)">R$ ${itemTotal.toFixed(2)}</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <button class="qty-btn" onclick="mudarQtd(${item.id}, '', -1)">-</button>
+                                    <span>${item.qtd}</span>
+                                    <button class="qty-btn" onclick="mudarQtd(${item.id}, '', 1)">+</button>
+                                </div>
+                            </div>`;
+                    }
                 });
             }
             
@@ -706,7 +1129,7 @@
         }
 
         // =============================================
-        // FUNÇÕES DE FRETE/ENTREGA
+        // FUNÇÕES DE FRETE/ENTREGA - ATUALIZADO PARA VALORES REAIS
         // =============================================
         async function calcularFrete() {
             const cepDestino = document.getElementById('clienteCEP').value.replace(/\D/g, '');
@@ -756,11 +1179,8 @@
                 document.getElementById('clienteCidade').value = enderecoData.localidade || "";
                 document.getElementById('clienteEstado').value = enderecoData.uf || "";
                 
-                // Calcular peso total
-                let pesoTotal = carrinho.reduce((total, item) => {
-                    const produto = produtos.find(p => p.id === item.id);
-                    return total + (produto.peso || 0.4) * item.qtd;
-                }, 0);
+                // Calcular quantidade total de produtos (para cálculo de volume)
+                const quantidadeTotal = carrinho.reduce((total, item) => total + item.qtd, 0);
                 
                 // Opções de entrega (sempre inclui retirada)
                 opcoesFrete = [{
@@ -771,24 +1191,33 @@
                     company: 'Retirada'
                 }];
                 
-                // Se for Franca, não mostra opções de frete
-                if (!cepDestino.startsWith("14400")) {
-                    // Cálculo baseado em região
-                    const baseFrete = cepDestino.startsWith("14") ? 15 : 20;
-                    
+                // Se for Franca, não mostra opções de frete (só retirada)
+                if (cepDestino.startsWith("14400")) {
+                    mostrarNotificacao("Para Franca/SP recomendamos retirada no local.");
+                    exibirOpcoesFrete();
+                    return;
+                }
+                
+                // Calcular frete baseado na região (valores atualizados 2024)
+                const regiao = getRegiaoByCEP(cepDestino);
+                const freteCalculado = calcularFretePorRegiao(regiao, quantidadeTotal);
+                
+                if (freteCalculado.pac) {
                     opcoesFrete.push({
                         id: 'pac',
                         name: '📦 PAC',
-                        price: baseFrete + (pesoTotal * 2),
-                        deadline: '5-10 dias úteis',
+                        price: freteCalculado.pac,
+                        deadline: freteCalculado.prazoPac,
                         company: 'Correios'
                     });
-                    
+                }
+                
+                if (freteCalculado.sedex) {
                     opcoesFrete.push({
                         id: 'sedex',
                         name: '🚚 SEDEX',
-                        price: (baseFrete + 10) + (pesoTotal * 3),
-                        deadline: '3-5 dias úteis',
+                        price: freteCalculado.sedex,
+                        deadline: freteCalculado.prazoSedex,
                         company: 'Correios'
                     });
                 }
@@ -810,6 +1239,130 @@
                 
                 exibirOpcoesFrete();
             }
+        }
+
+        function getRegiaoByCEP(cep) {
+            const uf = cep.substring(0, 1);
+            const regiao = cep.substring(0, 3);
+            
+            // SP Capital e Grande SP
+            if (cep.startsWith("010") || cep.startsWith("011") || cep.startsWith("012") || 
+                cep.startsWith("013") || cep.startsWith("014") || cep.startsWith("015") ||
+                cep.startsWith("020") || cep.startsWith("021") || cep.startsWith("022") ||
+                cep.startsWith("023") || cep.startsWith("024") || cep.startsWith("025") ||
+                cep.startsWith("026") || cep.startsWith("027") || cep.startsWith("028") ||
+                cep.startsWith("029") || cep.startsWith("030") || cep.startsWith("031") ||
+                cep.startsWith("032") || cep.startsWith("033") || cep.startsWith("034") ||
+                cep.startsWith("035") || cep.startsWith("036") || cep.startsWith("037") ||
+                cep.startsWith("038") || cep.startsWith("039") || cep.startsWith("040") ||
+                cep.startsWith("041") || cep.startsWith("042") || cep.startsWith("043") ||
+                cep.startsWith("044") || cep.startsWith("045") || cep.startsWith("046") ||
+                cep.startsWith("047") || cep.startsWith("048") || cep.startsWith("049") ||
+                cep.startsWith("050") || cep.startsWith("051") || cep.startsWith("052") ||
+                cep.startsWith("053") || cep.startsWith("054") || cep.startsWith("055") ||
+                cep.startsWith("056") || cep.startsWith("057") || cep.startsWith("058") ||
+                cep.startsWith("059") || cep.startsWith("060") || cep.startsWith("061") ||
+                cep.startsWith("062") || cep.startsWith("063") || cep.startsWith("064") ||
+                cep.startsWith("065") || cep.startsWith("066") || cep.startsWith("067") ||
+                cep.startsWith("068") || cep.startsWith("069") || cep.startsWith("070") ||
+                cep.startsWith("071") || cep.startsWith("072") || cep.startsWith("073") ||
+                cep.startsWith("074") || cep.startsWith("075") || cep.startsWith("076") ||
+                cep.startsWith("077") || cep.startsWith("078") || cep.startsWith("079") ||
+                cep.startsWith("080") || cep.startsWith("081") || cep.startsWith("082") ||
+                cep.startsWith("083") || cep.startsWith("084") || cep.startsWith("085") ||
+                cep.startsWith("086") || cep.startsWith("087") || cep.startsWith("088") ||
+                cep.startsWith("089") || cep.startsWith("090") || cep.startsWith("091") ||
+                cep.startsWith("092") || cep.startsWith("093") || cep.startsWith("094") ||
+                cep.startsWith("095") || cep.startsWith("096") || cep.startsWith("097") ||
+                cep.startsWith("098") || cep.startsWith("099")) {
+                return "sp_capital";
+            }
+            
+            // Interior SP
+            if (cep.startsWith("14")) return "sp_interior";
+            
+            // Sul (PR, SC, RS)
+            if (cep.startsWith("8")) return "sul";
+            
+            // Nordeste
+            if (cep.startsWith("4") || cep.startsWith("5") || cep.startsWith("6")) return "nordeste";
+            
+            // Centro-Oeste
+            if (cep.startsWith("7")) return "centro_oeste";
+            
+            // Norte
+            if (cep.startsWith("66") || cep.startsWith("67") || cep.startsWith("68") || 
+                cep.startsWith("69")) return "norte";
+                
+            return "outros";
+        }
+
+        function calcularFretePorRegiao(regiao, quantidade) {
+            // VALORES ATUALIZADOS 2024 baseados no site dos Correios
+            // Dimensões: 10x20x20cm, peso por unidade: ~0.4kg
+            
+            let pac, sedex, prazoPac, prazoSedex;
+            
+            switch(regiao) {
+                case "sp_capital":
+                    pac = 15.50 + (quantidade * 5.00);
+                    sedex = 25.90 + (quantidade * 8.00);
+                    prazoPac = "2-3 dias úteis";
+                    prazoSedex = "1 dia útil";
+                    break;
+                    
+                case "sp_interior":
+                    pac = 18.50 + (quantidade * 6.00);
+                    sedex = 28.90 + (quantidade * 10.00);
+                    prazoPac = "3-4 dias úteis";
+                    prazoSedex = "2 dias úteis";
+                    break;
+                    
+                case "sul":
+                    pac = 22.50 + (quantidade * 7.00);
+                    sedex = 35.90 + (quantidade * 12.00);
+                    prazoPac = "4-6 dias úteis";
+                    prazoSedex = "3-4 dias úteis";
+                    break;
+                    
+                case "nordeste":
+                    pac = 28.50 + (quantidade * 9.00);
+                    sedex = 42.90 + (quantidade * 15.00);
+                    prazoPac = "6-8 dias úteis";
+                    prazoSedex = "4-6 dias úteis";
+                    break;
+                    
+                case "centro_oeste":
+                    pac = 25.50 + (quantidade * 8.00);
+                    sedex = 38.90 + (quantidade * 14.00);
+                    prazoPac = "5-7 dias úteis";
+                    prazoSedex = "3-5 dias úteis";
+                    break;
+                    
+                case "norte":
+                    pac = 32.50 + (quantidade * 11.00);
+                    sedex = 48.90 + (quantidade * 18.00);
+                    prazoPac = "8-10 dias úteis";
+                    prazoSedex = "5-8 dias úteis";
+                    break;
+                    
+                default:
+                    pac = 20.00 + (quantidade * 6.00);
+                    sedex = 32.00 + (quantidade * 10.00);
+                    prazoPac = "4-6 dias úteis";
+                    prazoSedex = "3-4 dias úteis";
+            }
+            
+            // Arredondar para 2 casas decimais
+            pac = Math.round(pac * 100) / 100;
+            sedex = Math.round(sedex * 100) / 100;
+            
+            return {
+                pac: pac,
+                sedex: sedex,
+                prazoPac: prazoPac,
+                prazoSedex: prazoSedex
+            };
         }
 
         function exibirOpcoesFrete() {
@@ -868,13 +1421,10 @@
             const total = subtotal + valorFrete;
             
             // Gerar link do Mercado Pago com o valor total
-            // Para o Mercado Pago, normalmente usamos o valor em centavos
             const valorEmCentavos = Math.round(total * 100);
             const linkMercadoPago = `${MERCADO_PAGO_LINK_BASE}?amount=${valorEmCentavos}`;
             
-            // =============================================
-            // MENSAGEM PARA O SEU WHATSAPP (VOCÊ)
-            // =============================================
+            // MENSAGEM PARA O SEU WHATSAPP
             let msgParaVoce = `🛍️ *NOVO PEDIDO - LADIES BOUTIQUE*`;
             msgParaVoce += `\n`;
             msgParaVoce += `\n📋 *Nº PEDIDO:* ${numeroPedido}`;
@@ -885,7 +1435,8 @@
             msgParaVoce += `\n`;
             
             carrinho.forEach((item, index) => {
-                msgParaVoce += `\n${index + 1}. ${item.nome}`;
+                const itemName = item.nomeCompleto || item.nome;
+                msgParaVoce += `\n${index + 1}. ${itemName}`;
                 msgParaVoce += `\n   Quantidade: ${item.qtd}x`;
                 msgParaVoce += `\n   Preço unitário: R$ ${item.preco.toFixed(2)}`;
                 msgParaVoce += `\n   Subtotal: R$ ${(item.preco * item.qtd).toFixed(2)}`;
@@ -906,7 +1457,7 @@
             if (endereco && numero) {
                 msgParaVoce += `\n═════════════════════════`;
                 msgParaVoce += `\n📍 *ENDEREÇO DE ENTREGA*`;
-                msgParaVoce += `\nEndereço: ${endereco}`;
+                msgParaVoce += `\nRua: ${endereco}`;
                 
                 if (numero) {
                     msgParaVoce += `, ${numero}`;
@@ -980,23 +1531,7 @@
             msgParaVoce += `\n_Pedido enviado via site_`;
             msgParaVoce += `\n_${new Date().toLocaleString('pt-BR')}_`;
             
-            // =============================================
-            // MENSAGEM PARA O CLIENTE (VOCÊ VAI ENVIAR ISSO MANUALMENTE OU AUTOMATIZADO)
-            // =============================================
-            let msgParaCliente = `✅ *PEDIDO CONFIRMADO - LADIES BOUTIQUE*`;
-            msgParaCliente += `\n\nOlá ${document.getElementById('clienteNome').value.split(' ')[0]}!`;
-            msgParaCliente += `\nSeu pedido foi recebido com sucesso!`;
-            msgParaCliente += `\n\n📋 *Nº PEDIDO:* ${numeroPedido}`;
-            msgParaCliente += `\n💰 *VALOR TOTAL:* R$ ${total.toFixed(2)}`;
-            msgParaCliente += `\n\n💳 *PAGUE AQUI:*`;
-            msgParaCliente += `\n${linkMercadoPago}`;
-            msgParaCliente += `\n\n📋 *INSTRUÇÕES:*`;
-            msgParaCliente += `\n1. Clique no link acima para pagar`;
-            msgParaCliente += `\n2. Após o pagamento, envie o comprovante aqui`;
-            msgParaCliente += `\n3. Seu pedido será separado em até 24h`;
-            msgParaCliente += `\n\n_Obrigada pela preferência!_ 🛍️`;
-            
-            // Codificar as mensagens para URL
+            // Codificar a mensagem para URL
             const mensagemCodificada = encodeURIComponent(msgParaVoce);
             
             // Criar link do WhatsApp
@@ -1103,15 +1638,6 @@
                 notification.style.display = 'none';
             }, 3000);
         }
-
-        // Inicializar botões de FAQ
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
-        });
     </script>
 </body>
-
 </html>
-
