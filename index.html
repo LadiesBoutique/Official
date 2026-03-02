@@ -83,66 +83,6 @@
             100% { transform: translateY(0); }
         }
 
-        /* MENU DE CATEGORIAS - NOVO */
-        .categoria-menu {
-            background: #111;
-            padding: 12px 5%;
-            border-bottom: 1px solid var(--glass-border);
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            display: flex;
-            gap: 25px;
-            justify-content: center;
-        }
-        
-        .categoria-menu::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .categoria-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 18px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            font-family: 'Syncopate';
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: #fff;
-            text-decoration: none;
-        }
-        
-        .categoria-item i {
-            color: var(--neon-pink);
-            font-size: 0.9rem;
-        }
-        
-        .categoria-item:hover {
-            background: var(--neon-pink);
-            border-color: var(--neon-pink);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px var(--neon-pink);
-        }
-        
-        .categoria-item:hover i {
-            color: #000;
-        }
-        
-        .categoria-item.ativo {
-            background: var(--neon-pink);
-            border-color: var(--neon-pink);
-            color: #000;
-        }
-        
-        .categoria-item.ativo i {
-            color: #000;
-        }
-
         .main-container {
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -230,7 +170,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 30%;
+            object-position: center 30%; /* Ajusta o enquadramento para focar na bolsa */
         }
 
         .carousel-nav {
@@ -500,15 +440,6 @@
                 text-align: center;
                 gap: 10px;
             }
-            .categoria-menu {
-                justify-content: flex-start;
-                gap: 10px;
-                padding: 10px 5%;
-            }
-            .categoria-item {
-                padding: 6px 12px;
-                font-size: 0.6rem;
-            }
         }
 
         /* Notificação */
@@ -649,34 +580,6 @@
         <div class="promo-text" style="margin-top:12px;">WhatsApp: (16) 99431-9916</div>
     </div>
 
-    <!-- MENU DE CATEGORIAS - BOLSA, CARTEIRA, ÓCULOS, BONÉ, RELÓGIO, SEXY SHOP, KIT PRODUTOS -->
-    <div class="categoria-menu">
-        <span class="categoria-item ativo" onclick="filtrarCategoria('todos', this)">
-            <i class="fas fa-th-large"></i> TODOS
-        </span>
-        <span class="categoria-item" onclick="filtrarCategoria('bolsa', this)">
-            <i class="fas fa-shopping-bag"></i> BOLSA
-        </span>
-        <span class="categoria-item" onclick="filtrarCategoria('carteira', this)">
-            <i class="fas fa-wallet"></i> CARTEIRA
-        </span>
-        <span class="categoria-item" onclick="filtrarCategoria('oculos', this)">
-            <i class="fas fa-glasses"></i> ÓCULOS
-        </span>
-        <span class="categoria-item" onclick="filtrarCategoria('bone', this)">
-            <i class="fas fa-hat-cowboy"></i> BONÉ
-        </span>
-        <span class="categoria-item" onclick="filtrarCategoria('relogio', this)">
-            <i class="fas fa-clock"></i> RELÓGIO
-        </span>
-        <span class="categoria-item" onclick="filtrarCategoria('sexy', this)">
-            <i class="fas fa-heart"></i> SEXY SHOP
-        </span>
-        <span class="categoria-item" onclick="filtrarCategoria('kit', this)">
-            <i class="fas fa-gift"></i> KIT PRODUTOS
-        </span>
-    </div>
-
     <main class="main-container" id="gridLoja"></main>
 
     <section class="testimonials">
@@ -805,7 +708,7 @@
         // CONFIGURAÇÕES
         // =============================================
         const WHATSAPP_NUMBER = "5516994319916";
-        const LOJA_CEP = "14402687";
+        const LOJA_CEP = "14400000";
         const MERCADO_PAGO_LINK_BASE = "https://link.mercadopago.com.br/ladiesboutiqueof";
         
         // Configurações dos Correios - VALORES ATUALIZADOS 2024
@@ -829,28 +732,25 @@
         let totalPedido = 0;
         let ultimoPedidoNumero = null;
         let carouselStates = {}; // Para controlar o estado de cada carrossel
-        let categoriaAtual = 'todos'; // Categoria ativa
 
         // =============================================
-        // PRODUTOS - COM CATEGORIAS - CORRIGIDO!
+        // PRODUTOS - BOLSA GABY DISPONÍVEL (ESGOTADO REMOVIDO)
         // =============================================
         const produtos = [
-            // BOLSAS (categoria: bolsa)
-            { id: 1, nome: "Bolsa Antonella", preco: 39.90, peso: 0.4, foto: "1wp3IW2H9BCIr_5QvDe4kHI_um5ZbAHGy", categoria: "bolsa" },
-            { id: 2, nome: "Bolsa Aurora", preco: 31.49, peso: 0.4, foto: "1uWyOSpl9aShUzBTQ1tJT38FJry8vtf23", categoria: "bolsa" },
-            { id: 3, nome: "Bolsa Bella", preco: 39.90, peso: 0.5, foto: "1aWeFzLUEXtH5XQLeuhuBGQLqN1RAzyyJ", categoria: "bolsa" },
-            { id: 4, nome: "Bolsa Bia", preco: 39.90, peso: 0.4, foto: "1hiIWkD__rGEXLVgtMa-cxx6FKey_djyH", categoria: "bolsa" },
-            { id: 5, nome: "Bolsa Carmem", preco: 39.90, peso: 0.5, foto: "1pa33tfa2438Wqkp4OMnBobASeP6jqiZE", categoria: "bolsa" },
-            { id: 6, nome: "Bolsa Chiara", preco: 31.49, peso: 0.4, foto: "14m1D4f4_lDjVWn68WW7eKSC28U2ubvva", categoria: "bolsa" },
-            { id: 7, nome: "Bolsa Elisa", preco: 39.90, peso: 0.5, foto: "1IjVr0XIoVXfll_4tJsTltlFM972FmM7Z", categoria: "bolsa" },
-            { id: 8, nome: "Bolsa Gaby", preco: 31.49, peso: 0.4, foto: "1S_C8LLvtiGcJQ6zhpSHWqvst4FYD2yeg", categoria: "bolsa" },
-            { id: 9, nome: "Bolsa Griff", preco: 29.49, peso: 0.5, foto: "1um_ruVTfOc64ixM92LC_gUiTrH8Zvt3a", categoria: "bolsa" },
+            { id: 1, nome: "Bolsa Antonella", preco: 39.90, peso: 0.4, foto: "1wp3IW2H9BCIr_5QvDe4kHI_um5ZbAHGy" },
+            { id: 2, nome: "Bolsa Aurora", preco: 31.49, peso: 0.4, foto: "1uWyOSpl9aShUzBTQ1tJT38FJry8vtf23" },
+            { id: 3, nome: "Bolsa Bella", preco: 39.90, peso: 0.5, foto: "1aWeFzLUEXtH5XQLeuhuBGQLqN1RAzyyJ" },
+            { id: 4, nome: "Bolsa Bia", preco: 39.90, peso: 0.4, foto: "1hiIWkD__rGEXLVgtMa-cxx6FKey_djyH" },
+            { id: 5, nome: "Bolsa Carmem", preco: 39.90, peso: 0.5, foto: "1pa33tfa2438Wqkp4OMnBobASeP6jqiZE" },
+            { id: 6, nome: "Bolsa Chiara", preco: 31.49, peso: 0.4, foto: "14m1D4f4_lDjVWn68WW7eKSC28U2ubvva" },
+            { id: 7, nome: "Bolsa Elisa", preco: 39.90, peso: 0.5, foto: "1IjVr0XIoVXfll_4tJsTltlFM972FmM7Z" },
+            { id: 8, nome: "Bolsa Gaby", preco: 31.49, peso: 0.4, foto: "1S_C8LLvtiGcJQ6zhpSHWqvst4FYD2yeg" }, // ESGOTADO REMOVIDO - AGORA DISPONÍVEL
+            { id: 9, nome: "Bolsa Griff", preco: 29.49, peso: 0.5, foto: "1um_ruVTfOc64ixM92LC_gUiTrH8Zvt3a" },
             { 
                 id: 10, 
                 nome: "Bolsa Helena", 
                 preco: 39.90, 
                 peso: 0.4, 
-                categoria: "bolsa",
                 variacoes: [
                     { cor: "Preto", foto: "1-zsY9LAwdd4jVvZk2BaEMGAbXm3CFm4M", codigoCor: "#000000" },
                     { cor: "Branco", foto: "1TriUSTWPtfpairM-s8CldkMMJiRch5o-", codigoCor: "#FFFFFF" },
@@ -860,61 +760,32 @@
                     { cor: "Caramelo", foto: "1Gg1SYMySwtSgeF_6bUUlelFG9A39HGie", codigoCor: "#AF6E4D" }
                 ]
             },
-            { id: 11, nome: "Bolsa Hello", preco: 29.49, peso: 0.5, foto: "1AEFkib7dzs1bZPfqLo663aBUmY7FOcLy", categoria: "bolsa" },
-            { id: 12, nome: "Bolsa Lais", preco: 39.90, peso: 0.4, foto: "1kDFxzSKZn1ljFXx1cEZHt1b-8dSFXlGZ", categoria: "bolsa" },
-            { id: 13, nome: "Bolsa Lari", preco: 39.90, peso: 0.5, foto: "1DPHD_Khcc0hgFumV_UR8I7mRT0cbAvRp", categoria: "bolsa" },
-            { id: 14, nome: "Bolsa Maya", preco: 39.90, peso: 0.4, foto: "1zXtLttvLh2p5IM8Yn-lY-zi5wRCzTL6-", categoria: "bolsa" },
-            { id: 15, nome: "Bolsa Mia", preco: 39.90, peso: 0.5, foto: "1zyZeFCfXDzR6tVoN48ZtoKLLYWlAywaE", categoria: "bolsa" },
-            { id: 16, nome: "Bolsa Suely", preco: 31.49, peso: 0.4, foto: "1OjHY0EHewYGoz6N_Dwvew0fBXF9rKVvJ", categoria: "bolsa" },
-            { id: 17, nome: "Bolsa Vitoria", preco: 39.90, peso: 0.5, foto: "1AUIImcXP6XwaqLEl_P6NvU5RK8nJNWf3", categoria: "bolsa" },
-            { id: 19, nome: "Bolsa Valentina", preco: 39.90, peso: 0.4, foto: "1ijRGne1D4V5APChcbtqvijNOQPdBYOue", categoria: "bolsa" },
-            
-            // CARTEIRA (categoria: carteira)
-            { id: 18, nome: "Carteira", preco: 15.90, peso: 0.2, foto: "1Dayic6UtKTnq75a-clc2gzBGDOT7FtUB", categoria: "carteira" },
-            { 
+            { id: 11, nome: "Bolsa Hello", preco: 29.49, peso: 0.5, foto: "1AEFkib7dzs1bZPfqLo663aBUmY7FOcLy" },
+            { id: 12, nome: "Bolsa Lais", preco: 39.90, peso: 0.4, foto: "1kDFxzSKZn1ljFXx1cEZHt1b-8dSFXlGZ" },
+            { id: 13, nome: "Bolsa Lari", preco: 39.90, peso: 0.5, foto: "1DPHD_Khcc0hgFumV_UR8I7mRT0cbAvRp" },
+            { id: 14, nome: "Bolsa Maya", preco: 39.90, peso: 0.4, foto: "1zXtLttvLh2p5IM8Yn-lY-zi5wRCzTL6-" },
+            { id: 15, nome: "Bolsa Mia", preco: 39.90, peso: 0.5, foto: "1zyZeFCfXDzR6tVoN48ZtoKLLYWlAywaE" },
+            { id: 16, nome: "Bolsa Suely", preco: 31.49, peso: 0.4, foto: "1OjHY0EHewYGoz6N_Dwvew0fBXF9rKVvJ" },
+            { id: 17, nome: "Bolsa Vitoria", preco: 39.90, peso: 0.5, foto: "1AUIImcXP6XwaqLEl_P6NvU5RK8nJNWf3" },
+            { id: 18, nome: "Carteira", preco: 15.90, peso: 0.2, foto: "1Dayic6UtKTnq75a-clc2gzBGDOT7FtUB" },
+            { id: 19, nome: "Bolsa Valentina", preco: 39.90, peso: 0.4, foto: "1ijRGne1D4V5APChcbtqvijNOQPdBYOue" }
+             { 
                 id: 20, 
                 nome: "Porta Cartao", 
                 preco: 5.49, 
                 peso: 0.4, 
-                categoria: "carteira",
                 variacoes: [
                     { cor: "Preto", foto: "1kX9KHnK-QT_DukkwT3aEvOjDoaCIptQq", codigoCor: "#000000" },
-                    { cor: "Cafe", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#6F4E37" },
-                    { cor: "Caramelo", foto: "1kX9KHnK-QT_DukkwT3aEvOjDoaCIptQq", codigoCor: "#AF6E4D" },
-                    { cor: "Marfim", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#FFF8E7" },
+                    { cor: "Cafe", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#964B00" },
+                    { cor: "Caramelo", foto: "1kX9KHnK-QT_DukkwT3aEvOjDoaCIptQq", codigoCor: "#D2B48C" },
+                    { cor: "Marfim", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#FFFFF0" },
                     { cor: "Branco", foto: "1kX9KHnK-QT_DukkwT3aEvOjDoaCIptQq", codigoCor: "#FFFFFF" },
-                    { cor: "Azul", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#ADD8E6" },
-                    { cor: "Rosa", foto: "1kX9KHnK-QT_DukkwT3aEvOjDoaCIptQq", codigoCor: "#F4C2C2" },
-                    { cor: "Dourado", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#FFD700" }
+                    { cor: "Azul", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#ADD8E6" }
+                    { cor: "Rosa", foto: "1kX9KHnK-QT_DukkwT3aEvOjDoaCIptQq", codigoCor: "#FFC5C5" }
+                    { cor: "Dourado", foto: "17RvdjBFMz5U9dLa0zR9X32_lROZPJ0gr", codigoCor: "#FFD700" } 
                 ]
             },
-            
-            // ÓCULOS (categoria: oculos) - NOVOS
-            { id: 21, nome: "Em Breve", preco: 00.00, peso: 0.1, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "oculos" },
-            { id: 22, nome: "Em Breve", preco: 00.00, peso: 0.1, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "oculos" },
-            { id: 23, nome: "Óculos Aviador", preco: 00.00, peso: 0.12, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "oculos" },
-            { id: 24, nome: "Óculos Retrô", preco: 00.00, peso: 0.1, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "oculos" },
-            
-            // BONÉ (categoria: bone) - NOVOS
-            { id: 25, nome: "Boné Aba Curva", preco: 00.00, peso: 0.15, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "bone" },
-            { id: 26, nome: "Boné Trucker", preco: 00.00, peso: 0.14, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "bone" },
-            { id: 27, nome: "Boné Snapback", preco: 00.00, peso: 0.16, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "bone" },
-            
-            // RELÓGIO (categoria: relogio) - NOVOS
-            { id: 28, nome: "Relógio Feminino", preco: 00.00, peso: 0.2, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "relogio" },
-            { id: 29, nome: "Relógio Esportivo", preco: 00.00, peso: 0.18, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "relogio" },
-            { id: 30, nome: "Relógio Pulseira", preco: 00.00, peso: 0.15, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "relogio" },
-            
-            // SEXY SHOP (categoria: sexy) - NOVOS
-            { id: 31, nome: "Kit Sensual", preco: 00.00, peso: 0.3, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "sexy" },
-            { id: 32, nome: "Acessórios", preco: 00.00, peso: 0.2, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "sexy" },
-            
-            // KIT PRODUTOS (categoria: kit) - NOVOS
-            { id: 33, nome: "Kit 2 Bolsas", preco: 00.00, peso: 0.8, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "kit" },
-            { id: 34, nome: "Kit Bolsa + Carteira", preco: 00.00, peso: 0.6, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "kit" },
-            { id: 35, nome: "Kit Presente", preco: 00.00, peso: 0.5, foto: "1Og3NgkKcP15FpghAyNf79q1YcXIIBhgi", categoria: "kit" },
-            // NOVO PRODUTO KIT
-            { id: 36, nome: "Kit Luxu", preco: 69.90, peso: 0.7, foto: "1TOxEVbo9eEDOt54boUssO8BqZoaCu9C-", categoria: "kit" }
+            { id: 2, nome: "Kit Luxu", preco: 69.90, peso: 0.4, foto: "1TOxEVbo9eEDOt54boUssO8BqZoaCu9C-" },
         ];
 
         // =============================================
@@ -925,43 +796,15 @@
         }
 
         // =============================================
-        // FILTRAR POR CATEGORIA
+        // INICIALIZAÇÃO
         // =============================================
-        function filtrarCategoria(categoria, elemento) {
-            categoriaAtual = categoria;
-            
-            // Atualizar classe ativa no menu
-            document.querySelectorAll('.categoria-item').forEach(item => {
-                item.classList.remove('ativo');
-            });
-            
-            // Adicionar classe ativo ao elemento clicado
-            if (elemento) {
-                elemento.classList.add('ativo');
-            }
-            
-            // Renderizar produtos filtrados
-            renderizarProdutos();
-        }
-
-        // =============================================
-        // RENDERIZAR PRODUTOS
-        // =============================================
-        function renderizarProdutos() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar produtos
             const grid = document.getElementById('gridLoja');
-            grid.innerHTML = '';
-            
-            // Filtrar produtos pela categoria selecionada
-            let produtosFiltrados = produtos;
-            if (categoriaAtual !== 'todos') {
-                produtosFiltrados = produtos.filter(p => p.categoria === categoriaAtual);
-            }
-            
-            // Renderizar cada produto
-            produtosFiltrados.forEach((p, index) => {
+            produtos.forEach((p, index) => {
                 const isEsgotado = p.esgotado || false;
                 
-                if (p.variacoes) { // Produto com variações
+                if (p.id === 10) { // Bolsa Helena com variações
                     grid.innerHTML += criarProdutoComVariacoes(p, index);
                 } else {
                     const btnHTML = isEsgotado 
@@ -981,23 +824,6 @@
                         </div>`;
                 }
             });
-            
-            // Inicializar carrosséis para produtos com variações
-            setTimeout(() => {
-                produtosFiltrados.forEach(p => {
-                    if (p.variacoes) {
-                        inicializarCarrossel(p.id);
-                    }
-                });
-            }, 100);
-        }
-
-        // =============================================
-        // INICIALIZAÇÃO
-        // =============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Renderizar produtos
-            renderizarProdutos();
 
             // Máscaras para os inputs
             document.getElementById('clienteCEP').addEventListener('input', function(e) {
@@ -1024,10 +850,19 @@
                     this.classList.toggle('active');
                 };
             });
+
+            // Inicializar carrosséis
+            setTimeout(() => {
+                produtos.forEach(p => {
+                    if (p.id === 10) {
+                        inicializarCarrossel(p.id);
+                    }
+                });
+            }, 100);
         });
 
         // =============================================
-        // FUNÇÃO PARA CRIAR PRODUTO COM VARIAÇÕES
+        // FUNÇÃO PARA CRIAR PRODUTO COM VARAIAÇÕES
         // =============================================
         function criarProdutoComVariacoes(produto, index) {
             const carouselId = `carousel-${produto.id}`;
@@ -1194,8 +1029,8 @@
                 return;
             }
             
-            // Para produtos com variações
-            if (p.variacoes) {
+            // Para produtos com variações (Bolsa Helena)
+            if (p.id === 10) {
                 const currentSlide = carouselStates[p.id] || 0;
                 const selectedColor = p.variacoes[currentSlide];
                 
