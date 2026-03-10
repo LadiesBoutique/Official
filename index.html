@@ -3,752 +3,943 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LADIES BOUTIQUE | Oficial</title>
+    <title>LADIES BOUTIQUE | Loja Oficial</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
-            --neon-pink: #ff007f;
-            --neon-blue: #00f2ff;
-            --neon-green: #39ff14;
-            --bg-deep: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #ff007f;
+            --secondary: #00f2ff;
+            --accent: #39ff14;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #f5f5f5;
+            --gray: #888;
+            --light-gray: #2a2a2a;
+            --success: #25D366;
+            --warning: #ffc107;
+            --danger: #dc3545;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-deep);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--darker);
             color: #fff;
             overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.05) 0%, transparent 50%);
         }
 
+        /* Header Styles */
         .top-bar {
-            background: var(--neon-pink);
-            color: #000;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: var(--darker);
             text-align: center;
-            padding: 5px 0;
-            font-size: 0.65rem;
-            font-family: 'Syncopate';
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        header {
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            position: sticky; top: 0; z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .header-socials { display: flex; gap: 15px; font-size: 1.2rem; }
-        .header-socials a { color: #fff; text-decoration: none; }
-        .header-socials a:hover { color: var(--neon-pink); }
-
-        .brand-name { 
-            font-family: 'Syncopate'; font-size: 1.2rem; font-weight: 700;
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            padding: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
-        .promo-slider {
-            background: #111;
-            padding: 12px;
-            text-align: center;
-            border-bottom: 1px solid var(--glass-border);
-            height: 45px;
-            overflow: hidden;
-        }
-        .promo-text {
-            font-size: 0.75rem;
-            color: var(--neon-blue);
-            font-family: 'Syncopate';
-            animation: slideUp 6s infinite;
-        }
-        @keyframes slideUp {
-            0%, 45% { transform: translateY(0); }
-            50%, 95% { transform: translateY(-30px); }
-            100% { transform: translateY(0); }
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .main-container {
-            display: grid; 
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(255,0,127,0.1) 0%, rgba(0,242,255,0.1) 100%);
+            padding: 60px 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Products Grid */
+        .products-section {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 30px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .products-grid {
+            display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px; padding: 40px 8%;
+            gap: 30px;
         }
 
         .product-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            background: var(--light-gray);
+            border-radius: 12px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-        .product-card:hover { transform: translateY(-8px); border-color: var(--neon-pink); }
-
-        /* Estilo para produto esgotado */
-        .product-card.esgotado {
-            opacity: 0.7;
-            filter: grayscale(0.8);
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
         }
 
-        .product-card.esgotado:hover {
-            transform: none;
-            border-color: var(--glass-border);
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 127, 0.2);
         }
 
-        .product-card.esgotado::after {
-            content: "ESGOTADO";
+        .product-badge {
             position: absolute;
-            top: 20px;
-            right: -10px;
-            background: #ff3333;
-            color: white;
-            padding: 5px 15px;
-            font-family: 'Syncopate';
-            font-size: 0.6rem;
-            font-weight: 700;
-            transform: rotate(15deg);
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            border-radius: 5px;
-            letter-spacing: 1px;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 10;
         }
 
-        .img-box { 
-            width: 100%; 
-            aspect-ratio: 1/1.1; 
-            background: #111; 
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .img-box img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            object-position: center;
-        }
-
-        /* Carousel para cores - AJUSTADO PARA MELHOR ENQUADRAMENTO */
-        .carousel-container {
-            position: relative;
+        .product-image {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 1;
             overflow: hidden;
+            position: relative;
         }
 
-        .carousel-track {
-            display: flex;
-            height: 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-slide img {
+        .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 30%; /* Ajusta o enquadramento para focar na bolsa */
+            transition: transform 0.5s;
         }
 
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
             display: flex;
-            justify-content: space-between;
-            padding: 0 10px;
-            transform: translateY(-50%);
-            z-index: 10;
+            gap: 10px;
         }
 
-        .carousel-btn {
-            background: rgba(0,0,0,0.5);
+        .btn {
+            flex: 1;
+            padding: 10px;
             border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 0.8rem;
-        }
-
-        .carousel-btn:hover {
-            background: var(--neon-pink);
-            transform: scale(1.1);
-        }
-
-        .carousel-dots {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            z-index: 10;
-        }
-
-        .carousel-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
             cursor: pointer;
             transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .carousel-dot.active {
-            background: var(--neon-pink);
-            transform: scale(1.2);
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #e0006f;
+            transform: scale(1.02);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+        }
+
+        /* Swiper Carousel for variations */
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper-pagination-bullet {
+            background: #fff;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--primary);
+            opacity: 1;
         }
 
         .color-selector {
             display: flex;
             gap: 8px;
-            margin: 10px 0;
-            flex-wrap: wrap;
+            margin-top: 10px;
             justify-content: center;
         }
 
-        .color-option {
+        .color-dot {
             width: 20px;
             height: 20px;
             border-radius: 50%;
             cursor: pointer;
             border: 2px solid transparent;
-            transition: all 0.3s;
-            position: relative;
+            transition: transform 0.3s;
         }
 
-        .color-option:hover {
+        .color-dot:hover {
             transform: scale(1.2);
         }
 
-        .color-option.selected {
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 10px var(--neon-pink);
+        .color-dot.active {
+            border-color: #fff;
+            box-shadow: 0 0 10px var(--primary);
         }
 
-        .color-option::after {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .info-box { padding: 20px; }
-        .price { color: var(--neon-blue); font-family: 'Syncopate'; font-size: 1.1rem; }
-
-        .add-btn {
-            width: 100%; margin-top: 15px; padding: 12px;
-            background: transparent; border: 1px solid var(--neon-pink);
-            color: #fff; border-radius: 10px; cursor: pointer;
-            font-family: 'Syncopate'; font-size: 0.6rem;
-        }
-        .add-btn:hover { background: var(--neon-pink); color: #000; box-shadow: 0 0 15px var(--neon-pink); }
-
-        .btn-esgotado {
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
             width: 100%;
-            margin-top: 15px;
-            padding: 12px;
-            background: #333;
-            border: 1px solid #555;
-            color: #888;
-            border-radius: 10px;
-            cursor: not-allowed;
-            font-family: 'Syncopate';
-            font-size: 0.6rem;
-            pointer-events: none;
-        }
-
-        .testimonials { padding: 60px 8%; text-align: center; background: #080808; }
-        .testi-grid { display: flex; gap: 20px; overflow-x: auto; padding: 20px 0; scrollbar-width: none; }
-        .testi-card { 
-            min-width: 280px; background: #111; padding: 25px; 
-            border-radius: 20px; border: 1px solid var(--glass-border);
-            font-size: 0.85rem; color: #ccc; font-style: italic;
-        }
-
-        footer { background: #000; padding: 50px 8% 20px; border-top: 1px solid var(--glass-border); }
-        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        
-        .faq-item { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; cursor: pointer; }
-        .faq-question { font-family: 'Syncopate'; font-size: 0.65rem; color: var(--neon-pink); display: flex; justify-content: space-between; }
-        .faq-answer { font-size: 0.75rem; color: #888; margin-top: 8px; display: none; }
-        .faq-item.active .faq-answer { display: block; }
-
-        .copyright-section {
-            margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--glass-border);
-            text-align: center; font-size: 0.7rem; color: #666;
-        }
-        .copyright-section a { color: var(--neon-pink); text-decoration: none; font-weight: 700; }
-
-        /* Modal do Carrinho */
-        #cartModal {
-            position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100%;
-            background: rgba(10,10,10,0.98); backdrop-filter: blur(20px);
-            z-index: 2001; padding: 30px; border-left: 1px solid var(--neon-pink);
+            max-width: 500px;
+            height: 100vh;
+            background: var(--dark);
+            z-index: 2000;
+            transition: right 0.3s ease;
             overflow-y: auto;
-            transition: right 0.4s ease;
-        }
-        #cartModal.active { right: 0; }
-
-        .cart-input {
-            width: 100%; padding: 10px; background: #111; border: 1px solid #333; 
-            color: #fff; border-radius: 8px; margin-bottom: 8px; font-size: 0.75rem;
-        }
-        .cart-row { display: flex; gap: 8px; }
-
-        .qty-btn {
-            background: #222; border: 1px solid #444; color: #fff;
-            padding: 2px 8px; border-radius: 4px; cursor: pointer;
-        }
-        .qty-btn:hover { background: var(--neon-pink); }
-
-        /* Opções de Frete */
-        .frete-option {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px; margin: 8px 0; background: rgba(255,255,255,0.05);
-            border-radius: 8px; cursor: pointer; border: 1px solid transparent;
-        }
-        .frete-option:hover { border-color: var(--neon-blue); }
-        .frete-option.selected { border-color: var(--neon-green); background: rgba(57,255,20,0.1); }
-        .frete-name { font-size: 0.8rem; }
-        .frete-price { color: var(--neon-green); font-weight: bold; }
-        .frete-prazo { font-size: 0.7rem; color: #aaa; }
-
-        /* Botão WhatsApp */
-        .whatsapp-btn {
-            width: 100%; margin-top: 20px; padding: 18px;
-            background: linear-gradient(45deg, #25D366, #128C7E);
-            border: none; border-radius: 12px; color: white;
-            font-family: 'Syncopate'; font-weight: 700; font-size: 0.9rem;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            gap: 10px;
-        }
-        .whatsapp-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); }
-        .whatsapp-btn:disabled { 
-            opacity: 0.6; cursor: not-allowed; 
-            background: linear-gradient(45deg, #1e7d5b, #0d6e56);
+            border-left: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Loader */
-        .loader {
-            border: 3px solid #333; border-top: 3px solid var(--neon-pink);
-            border-radius: 50%; width: 30px; height: 30px;
-            animation: spin 1s linear infinite; margin: 20px auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Popup de Confirmação */
-        #orderPopup {
-            display: none; position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); background: #111;
-            border: 2px solid var(--neon-blue); padding: 30px; 
-            border-radius: 20px; z-index: 3000; text-align: center;
-            width: 90%; max-width: 400px; box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
-        }
-        #overlay {
-            display: none; position: fixed; top: 0; left: 0; 
-            width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2999;
+        .cart-modal.active {
+            right: 0;
         }
 
-        /* Popup Informativo de Instruções */
-        #infoPopup {
-            display: none; position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); background: #111;
-            border: 2px solid var(--neon-green); padding: 25px; 
-            border-radius: 20px; z-index: 3001; text-align: center;
-            width: 90%; max-width: 450px; box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
-        }
-
-        .step-container {
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .step-item {
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            text-align: left;
         }
 
-        .step-number {
-            background: var(--neon-pink);
-            color: #000;
+        .cart-header h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .close-cart {
+            cursor: pointer;
+            font-size: 1.2rem;
             width: 30px;
             height: 30px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Syncopate';
-            font-weight: bold;
-            font-size: 0.8rem;
-            flex-shrink: 0;
+            border-radius: 50%;
+            background: var(--light-gray);
         }
 
-        .step-text {
-            font-size: 0.75rem;
-            color: #fff;
-            line-height: 1.4;
+        .cart-items {
+            padding: 20px;
+            max-height: calc(100vh - 400px);
+            overflow-y: auto;
         }
 
-        @media (max-width: 600px) {
-            .footer-grid { grid-template-columns: 1fr; }
-            #cartModal { width: 100%; }
-            .main-container { grid-template-columns: 1fr 1fr; padding: 20px 5%; gap: 15px; }
-            .cart-row { flex-direction: column; }
-            .step-item {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Notificação */
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--neon-pink);
-            color: #000;
-            padding: 15px 20px;
-            border-radius: 10px;
-            font-family: 'Syncopate';
-            font-size: 0.7rem;
-            z-index: 10000;
-            display: none;
-            animation: slideInRight 0.3s ease;
-        }
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        /* Estilos para seleção de cor no carrinho */
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
         .cart-item-color {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .cart-item-actions {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-top: 5px;
         }
 
-        .cart-color-preview {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 1px solid #fff;
+        .qty-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            background: var(--light-gray);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
         }
 
-        .color-badge {
-            font-size: 0.6rem;
-            background: var(--neon-pink);
-            color: #000;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-family: 'Syncopate';
+        .cart-form {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            background: var(--light-gray);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .cart-total {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .whatsapp-btn {
+            margin: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .whatsapp-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--dark);
+            padding: 60px 30px;
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 30px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--light-gray);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--dark);
+            padding: 60px 30px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        .faq-item {
+            background: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--gray);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 60px 30px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            display: none;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .cart-modal {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-
-    <div id="overlay"></div>
-    
-    <!-- Popup de Confirmação -->
-    <div id="orderPopup">
-        <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25D366; margin-bottom: 15px;"></i>
-        <h2 style="font-family:'Syncopate'; font-size: 1rem; margin-bottom: 15px; color: #fff;">PEDIDO ENVIADO!</h2>
-        <p style="font-size: 0.85rem; color: #ccc; line-height: 1.5; margin-bottom: 20px;">
-            Seu pedido foi enviado para nosso WhatsApp!<br>
-            Agora é só aguardar nosso contato.
-        </p>
-        <p style="font-size: 0.75rem; color: var(--neon-blue); margin-bottom: 15px;">
-            Nº Pedido: <span id="orderId" style="font-weight: bold;"></span>
-        </p>
-        <button onclick="fecharPopup()" style="width:100%; padding: 10px; background: var(--neon-pink); border: none; border-radius: 8px; color: #fff; cursor: pointer; font-family: 'Syncopate'; font-size: 0.7rem;">CONTINUAR COMPRANDO</button>
+    <div class="top-bar">
+        <i class="fas fa-truck"></i> FRETE GRÁTIS PARA FRANCA/SP | <i class="fas fa-credit-card"></i> PARCELE EM ATÉ 3X
     </div>
-
-    <!-- Popup Informativo de Instruções -->
-    <div id="infoPopup">
-        <div style="margin-bottom: 20px;">
-            <i class="fab fa-whatsapp" style="font-size: 2.5rem; color: #25D366; margin-bottom: 10px;"></i>
-            <h2 style="font-family:'Syncopate'; font-size: 0.9rem; margin-bottom: 10px; color: #fff;">📋 AGORA SIGA ESTES PASSOS:</h2>
-            <p style="font-size: 0.7rem; color: #ccc; margin-bottom: 20px;">
-                Seu pedido foi enviado! Veja como continuar:
-            </p>
-        </div>
-
-        <div class="step-container">
-            <div class="step-item">
-                <div class="step-number">1</div>
-                <div class="step-text">
-                    <strong>WhatsApp aberto</strong><br>
-                    Aguarde nossa resposta no WhatsApp
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">2</div>
-                <div class="step-text">
-                    <strong>Link de pagamento</strong><br>
-                    Você receberá o link de pagamento do Mercado Pago em minutos
-                </div>
-            </div>
-            
-            <div class="step-item">
-                <div class="step-number">3</div>
-                <div class="step-text">
-                    <strong>Confirme o pagamento</strong><br>
-                    Após pagar, envie o comprovante pelo mesmo WhatsApp
-                </div>
-            </div>
-        </div>
-
-        <div style="margin-top: 20px; padding: 15px; background: rgba(57,255,20,0.1); border-radius: 10px;">
-            <p style="font-size: 0.7rem; color: #fff; margin-bottom: 5px;">
-                <i class="fas fa-clock" style="color: var(--neon-blue);"></i>
-                Tempo de resposta: 5-15 minutos
-            </p>
-            <p style="font-size: 0.65rem; color: #aaa;">
-                Horário comercial: 9h às 18h
-            </p>
-        </div>
-
-        <div style="display: flex; gap: 10px; margin-top: 20px;">
-            <button onclick="fecharInfoPopup()" style="flex:1; padding: 10px; background: var(--neon-pink); border: none; border-radius: 8px; color: #fff; cursor: pointer; font-family: 'Syncopate'; font-size: 0.7rem;">ENTENDI</button>
-            <button onclick="abrirWhatsAppDireto()" style="flex:1; padding: 10px; background: #25D366; border: none; border-radius: 8px; color: #fff; cursor: pointer; font-family: 'Syncopate'; font-size: 0.7rem;">ABRIR WHATSAPP</button>
-        </div>
-    </div>
-
-    <!-- Notificação -->
-    <div class="notification" id="notification"></div>
-
-    <div class="top-bar">ENVIE SEU PEDIDO PELO WHATSAPP 📱 | RETIRADA EM FRANCA/SP 🏪</div>
 
     <header>
-        <div class="header-socials">
-            <a href="https://www.instagram.com/ladiesboutique953" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://wa.me/5516994319916" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <div class="brand-name">LADIES BOUTIQUE</div>
-        <div onclick="toggleCart()" style="cursor:pointer; position:relative;">
-            <i class="fas fa-shopping-bag" style="font-size:1.3rem;"></i>
-            <span id="cartCount" style="position:absolute; top:-8px; right:-10px; background:var(--neon-pink); font-size:0.6rem; padding:2px 6px; border-radius:50%;">0</span>
+        <div class="header-container">
+            <div class="logo">LADIES BOUTIQUE</div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#products" class="nav-link">Produtos</a>
+                <a href="#faq" class="nav-link">Dúvidas</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="https://www.instagram.com/ladiesboutique953" target="_blank" class="nav-link"><i class="fab fa-instagram"></i></a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
         </div>
     </header>
 
-    <div class="promo-slider">
-        <div class="promo-text">Envie seu pedido direto pelo WhatsApp! 📱</div>
-        <div class="promo-text" style="margin-top:12px;">Receba link de pagamento e envie comprovante 💳</div>
-        <div class="promo-text" style="margin-top:12px;">WhatsApp: (16) 99431-9916</div>
-    </div>
+    <section class="hero">
+        <h1>Bolsas Exclusivas</h1>
+        <p>Descubra nossa coleção com designs únicos e qualidade premium</p>
+    </section>
 
-    <main class="main-container" id="gridLoja"></main>
+    <section class="products-section" id="products">
+        <h2 class="section-title">Nossos Produtos</h2>
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
 
-    <section class="testimonials">
-        <h2 style="font-family:'Syncopate'; font-size:1rem; margin-bottom:30px;">O QUE ELAS DIZEM ⭐</h2>
-        <div class="testi-grid">
-            <div class="testi-card">"As bolsas são impecáveis! Chegou super rápido aqui em Franca. Atendimento nota 10." <br><br><b>- Ana Paula</b></div>
-            <div class="testi-card">"Apaixonada pela minha Chiara! A qualidade surpreendeu muito pelo preço." <br><br><b>- Juliana M.</b></div>
-            <div class="testi-card">"Comprei para dar de presente e minha irmã amou. Já quero uma pra mim agora!" <br><br><b>- Fernanda S.</b></div>
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                <div class="feature-title">Entrega Rápida</div>
+                <div class="feature-text">Envio para todo Brasil</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="feature-title">Compra Segura</div>
+                <div class="feature-text">Pagamento via Mercado Pago</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-undo"></i></div>
+                <div class="feature-title">Garantia</div>
+                <div class="feature-text">7 dias de garantia</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-whatsapp"></i></div>
+                <div class="feature-title">Atendimento</div>
+                <div class="feature-text">Suporte via WhatsApp</div>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <h3 style="font-family:'Syncopate'; font-size:0.8rem; margin-bottom:20px;">DÚVIDAS FREQUENTES</h3>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">COMO FUNCIONA A COMPRA PELO SITE? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">
-                        1. Escolha seus produtos e adicione ao carrinho<br>
-                        2. Preencha seus dados de entrega<br>
-                        3. Envie o pedido pelo WhatsApp<br>
-                        4. Receba o link de pagamento do Mercado Pago<br>
-                        5. Pague e envie o comprovante
-                    </div>
+    <section class="testimonials">
+        <h2 class="section-title">O que nossas clientes dizem</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"As bolsas são impecáveis! Chegou super rápido aqui em Franca. Atendimento nota 10."</p>
+                <p class="testimonial-author">- Ana Paula</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Apaixonada pela minha Chiara! A qualidade surpreendeu muito pelo preço."</p>
+                <p class="testimonial-author">- Juliana M.</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Comprei para dar de presente e minha irmã amou. Já quero uma pra mim agora!"</p>
+                <p class="testimonial-author">- Fernanda S.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <h2 class="section-title">Dúvidas Frequentes</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    Como comprar? <i class="fas fa-chevron-down"></i>
                 </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">QUAIS SÃO AS FORMAS DE PAGAMENTO? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Aceitamos pagamento via Mercado Pago, que inclui cartão de crédito, débito e Pix. Você receberá um link seguro para realizar o pagamento após enviar seu pedido.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">POSSO RETIRAR NO LOCAL? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Sim! Oferecemos retirada na Rua Olinda 660 - Brasilândia - Franca/SP sem custo adicional. Retirada a partir das 18:00h. Selecione "Retirar no Local" no carrinho.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">QUANTO TEMPO PARA ENTREGA? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Para retirada: disponível no mesmo dia após as 18h. Para entrega: 3-10 dias úteis dependendo da região. Franca e região: 1-2 dias úteis.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-question">PRECISO PREENCHER TODOS OS DADOS DE ENDEREÇO? <i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer">Sim, para entrega é necessário preencher: CEP, Rua, Número, Bairro, Cidade e Estado. O complemento é opcional. Para retirada, apenas os dados pessoais são necessários.</div>
+                <div class="faq-answer">
+                    Adicione os produtos ao carrinho, preencha seus dados e finalize o pedido via WhatsApp. Você receberá um link do Mercado Pago para pagamento.
                 </div>
             </div>
-            <div style="text-align: right;">
-                <h3 style="font-family:'Syncopate'; font-size:0.8rem; margin-bottom:20px;">CONTATO</h3>
-                <p style="font-size:0.8rem; color:#888;">Franca - SP</p>
-                <p style="font-size:0.8rem; color:#888;">
-                    <i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp: (16) 99431-9916
-                </p>
-                <p style="font-size:0.8rem; color:#888; margin-top:10px;">
-                    <i class="fas fa-clock"></i> Atendimento: 9h às 18h
-                </p>
-                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-                    <p style="font-size:0.7rem; color:var(--neon-blue); font-family:'Syncopate';">
-                        ⚡ FLUXO DE COMPRA
-                    </p>
-                    <p style="font-size:0.65rem; color:#aaa; margin-top:5px;">
-                        Pedido → Link pagamento → Comprovante → Separação
-                    </p>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Quais as formas de pagamento? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Aceitamos cartão de crédito (até 3x), Pix e boleto bancário através do Mercado Pago.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Qual o prazo de entrega? <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Para Franca/SP: retirada no mesmo dia. Demais localidades: 3 a 10 dias úteis via Correios.
                 </div>
             </div>
         </div>
-        <div class="copyright-section">
-            <a href="https://www.instagram.com/ladiesboutique953" target="_blank">Ladies Boutique Copyright © Todos os direitos reservados.</a>
-            <br><br>
-            <a href="https://baccaprosites.com.br" target="_blank" >Produzido por BaccaProSites©.</a>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-title">LADIES BOUTIQUE</h3>
+                    <p style="color: var(--gray); line-height: 1.6;">Bolsas exclusivas com qualidade premium e design único para mulheres modernas.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ladiesboutique953" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/5516994319916" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer-title">Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#products">Produtos</a></li>
+                        <li><a href="#faq">Dúvidas</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="footer-title">Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fab fa-whatsapp"></i> (16) 99431-9916</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Franca - SP</li>
+                        <li><i class="fas fa-clock"></i> Atendimento: 9h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2024 Ladies Boutique - Todos os direitos reservados</p>
+                <p style="margin-top: 10px;">Desenvolvido por <a href="https://baccaprosites.com.br" target="_blank">BaccaProSites</a></p>
+            </div>
         </div>
     </footer>
 
-    <!-- Modal do Carrinho -->
-    <div id="cartModal">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h2 style="font-family:'Syncopate'; font-size:1rem; color:var(--neon-pink);">SEU PEDIDO</h2>
-            <i class="fas fa-times" onclick="toggleCart()" style="cursor:pointer; font-size:1.2rem;"></i>
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Seu Carrinho</h2>
+            <div class="close-cart" onclick="toggleCart()"><i class="fas fa-times"></i></div>
         </div>
         
-        <!-- Formulário de Dados -->
-        <div style="margin-bottom: 20px;">
-            <input type="text" id="clienteNome" class="cart-input" placeholder="Nome Completo *" required>
-            <input type="email" id="clienteEmail" class="cart-input" placeholder="E-mail *" required>
-            <input type="text" id="clienteWhats" class="cart-input" placeholder="WhatsApp (com DDD) *" required>
-            
-            <div class="cart-row">
-                <input type="text" id="clienteCEP" class="cart-input" placeholder="CEP (opcional para retirada)" style="flex:2;">
-                <button onclick="calcularFrete()" style="flex:1; padding:10px; background:var(--neon-blue); border:none; border-radius:8px; color:#000; font-family:'Syncopate'; font-size:0.7rem; cursor:pointer;">CALCULAR FRETE</button>
+        <div class="cart-items" id="cartItems"></div>
+        
+        <div class="cart-form">
+            <div class="form-group">
+                <input type="text" class="form-input" id="clienteNome" placeholder="Nome Completo *">
             </div>
-            
-            <input type="text" id="clienteEnd" class="cart-input" placeholder="Rua *">
-            <div class="cart-row">
-                <input type="text" id="clienteNum" class="cart-input" placeholder="Número *" style="flex:1;">
-                <input type="text" id="clienteComplemento" class="cart-input" placeholder="Complemento" style="flex:2;">
+            <div class="form-group">
+                <input type="text" class="form-input" id="clienteWhats" placeholder="WhatsApp com DDD *">
             </div>
-            <input type="text" id="clienteBairro" class="cart-input" placeholder="Bairro *" readonly>
-            <div class="cart-row">
-                <input type="text" id="clienteCidade" class="cart-input" placeholder="Cidade *" readonly style="flex:2;">
-                <input type="text" id="clienteEstado" class="cart-input" placeholder="Estado *" readonly style="flex:1;">
+            <div class="form-group">
+                <input type="text" class="form-input" id="clienteCEP" placeholder="CEP">
+            </div>
+            <div class="form-row">
+                <input type="text" class="form-input" id="clienteNumero" placeholder="Número da Casa *">
+                <input type="text" class="form-input" id="clienteComplemento" placeholder="Complemento">
             </div>
         </div>
-
-        <!-- Itens do Carrinho -->
-        <div id="cartItems" style="max-height:20vh; overflow-y:auto; margin-bottom:20px; border-top: 1px solid #222; padding-top: 10px;"></div>
-
-        <!-- Opções de Frete/Entrega -->
-        <div id="freteOptions" style="margin-bottom:20px; display:none;">
-            <p style="font-family:'Syncopate'; font-size:0.6rem; color:var(--neon-blue); margin-bottom:10px;">OPÇÕES DE ENTREGA</p>
-            <div id="freteList"></div>
+        
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">R$ 0,00</span>
         </div>
-
-        <!-- Total -->
-        <div style="display:flex; justify-content:space-between; font-family:'Syncopate'; font-size:0.9rem; border-top:1px solid #222; padding-top:15px;">
-            <span>TOTAL</span> <span id="cartTotal" style="color:var(--neon-green);">R$ 0,00</span>
-        </div>
-
-        <!-- Botão WhatsApp -->
-        <button id="whatsappButton" class="whatsapp-btn" onclick="enviarPedidoWhatsApp()" disabled>
-            <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO NO WHATSAPP
+        
+        <button class="whatsapp-btn" id="whatsappButton" onclick="enviarPedidoWhatsApp()" disabled>
+            <i class="fab fa-whatsapp"></i> FINALIZAR PEDIDO
         </button>
-        
-        <p style="font-size:0.65rem; color:#888; text-align:center; margin-top:15px; line-height:1.4;">
-            <i class="fas fa-info-circle" style="color:var(--neon-blue);"></i> 
-            Você receberá o link de pagamento do Mercado Pago e deverá enviar o comprovante
-        </p>
     </div>
 
+    <div class="notification" id="notification"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
     <script>
-        // =============================================
-        // CONFIGURAÇÕES
-        // =============================================
+        // Configuração
         const WHATSAPP_NUMBER = "5516994319916";
-        const LOJA_CEP = "14400000";
-        const MERCADO_PAGO_LINK_BASE = "https://link.mercadopago.com.br/ladiesboutiqueof";
         
-        // Configurações dos Correios - VALORES ATUALIZADOS 2024
-        const CORREIOS_CONFIG = {
-            altura: 10, // cm
-            largura: 20, // cm
-            comprimento: 20, // cm
-            peso: 1, // kg
-            formato: 1, // 1 = Caixa/pacote
-            diametro: 0,
-            maoPropria: "N",
-            avisoRecebimento: "N"
-        };
-
-        // =============================================
-        // VARIÁVEIS GLOBAIS
-        // =============================================
         let carrinho = [];
-        let opcoesFrete = [];
-        let freteSelecionado = null;
-        let totalPedido = 0;
-        let ultimoPedidoNumero = null;
-        let carouselStates = {}; // Para controlar o estado de cada carrossel
-
-        // =============================================
-        // PRODUTOS - BOLSA GABY DISPONÍVEL (ESGOTADO REMOVIDO)
-        // =============================================
+        
+        // Produtos
         const produtos = [
-            { id: 1, nome: "Bolsa Antonella", preco: 39.90, peso: 0.4, foto: "1wp3IW2H9BCIr_5QvDe4kHI_um5ZbAHGy" },
-            { id: 3, nome: "Bolsa Bella", preco: 39.90, peso: 0.5, foto: "1aWeFzLUEXtH5XQLeuhuBGQLqN1RAzyyJ" },
-            { id: 4, nome: "Bolsa Bia", preco: 39.90, peso: 0.4, foto: "1hiIWkD__rGEXLVgtMa-cxx6FKey_djyH" },
-            { id: 5, nome: "Bolsa Carmem", preco: 39.90, peso: 0.5, foto: "1pa33tfa2438Wqkp4OMnBobASeP6jqiZE" },
-            { id: 6, nome: "Bolsa Chiara", preco: 31.49, peso: 0.4, foto: "14m1D4f4_lDjVWn68WW7eKSC28U2ubvva" },
-            { id: 7, nome: "Bolsa Elisa", preco: 39.90, peso: 0.5, foto: "1IjVr0XIoVXfll_4tJsTltlFM972FmM7Z" },
-            { id: 8, nome: "Bolsa Gaby", preco: 31.49, peso: 0.4, foto: "1S_C8LLvtiGcJQ6zhpSHWqvst4FYD2yeg" }, // ESGOTADO REMOVIDO - AGORA DISPONÍVEL
+            { id: 1, nome: "Bolsa Antonella", preco: 39.90, foto: "1wp3IW2H9BCIr_5QvDe4kHI_um5ZbAHGy" },
+            { id: 2, nome: "Bolsa Aurora", preco: 31.49, foto: "1uWyOSpl9aShUzBTQ1tJT38FJry8vtf23" },
+            { id: 3, nome: "Bolsa Bella", preco: 39.90, foto: "1aWeFzLUEXtH5XQLeuhuBGQLqN1RAzyyJ" },
+            { id: 4, nome: "Bolsa Bia", preco: 39.90, foto: "1hiIWkD__rGEXLVgtMa-cxx6FKey_djyH" },
+            { id: 5, nome: "Bolsa Carmem", preco: 39.90, foto: "1pa33tfa2438Wqkp4OMnBobASeP6jqiZE" },
+            { id: 6, nome: "Bolsa Chiara", preco: 31.49, foto: "14m1D4f4_lDjVWn68WW7eKSC28U2ubvva" },
+            { id: 7, nome: "Bolsa Elisa", preco: 39.90, foto: "1IjVr0XIoVXfll_4tJsTltlFM972FmM7Z" },
+            { id: 8, nome: "Bolsa Gaby", preco: 31.49, foto: "1S_C8LLvtiGcJQ6zhpSHWqvst4FYD2yeg" },
+            { id: 9, nome: "Bolsa Griff", preco: 29.49, foto: "1um_ruVTfOc64ixM92LC_gUiTrH8Zvt3a" },
             { 
                 id: 10, 
                 nome: "Bolsa Helena", 
                 preco: 39.90, 
-                peso: 0.4, 
                 variacoes: [
                     { cor: "Preto", foto: "1-zsY9LAwdd4jVvZk2BaEMGAbXm3CFm4M", codigoCor: "#000000" },
                     { cor: "Branco", foto: "1TriUSTWPtfpairM-s8CldkMMJiRch5o-", codigoCor: "#FFFFFF" },
@@ -758,872 +949,310 @@
                     { cor: "Caramelo", foto: "1Gg1SYMySwtSgeF_6bUUlelFG9A39HGie", codigoCor: "#AF6E4D" }
                 ]
             },
-            { id: 12, nome: "Bolsa Lais", preco: 39.90, peso: 0.4, foto: "1kDFxzSKZn1ljFXx1cEZHt1b-8dSFXlGZ" },
-            { id: 13, nome: "Bolsa Lari", preco: 39.90, peso: 0.5, foto: "1DPHD_Khcc0hgFumV_UR8I7mRT0cbAvRp" },
-            { id: 14, nome: "Bolsa Maya", preco: 39.90, peso: 0.4, foto: "1zXtLttvLh2p5IM8Yn-lY-zi5wRCzTL6-" },
-            { id: 15, nome: "Bolsa Mia", preco: 39.90, peso: 0.5, foto: "1zyZeFCfXDzR6tVoN48ZtoKLLYWlAywaE" },
-            { id: 16, nome: "Bolsa Suely", preco: 31.49, peso: 0.4, foto: "1OjHY0EHewYGoz6N_Dwvew0fBXF9rKVvJ" },
-            { id: 17, nome: "Bolsa Vitoria", preco: 39.90, peso: 0.5, foto: "1AUIImcXP6XwaqLEl_P6NvU5RK8nJNWf3" },
-            { id: 18, nome: "Carteira", preco: 15.90, peso: 0.2, foto: "1Dayic6UtKTnq75a-clc2gzBGDOT7FtUB" },
-            { id: 19, nome: "Bolsa Valentina", preco: 39.90, peso: 0.4, foto: "1ijRGne1D4V5APChcbtqvijNOQPdBYOue" }
+            { id: 11, nome: "Bolsa Hello", preco: 29.49, foto: "1AEFkib7dzs1bZPfqLo663aBUmY7FOcLy" },
+            { id: 12, nome: "Bolsa Lais", preco: 39.90, foto: "1kDFxzSKZn1ljFXx1cEZHt1b-8dSFXlGZ" },
+            { id: 13, nome: "Bolsa Lari", preco: 39.90, foto: "1DPHD_Khcc0hgFumV_UR8I7mRT0cbAvRp" },
+            { id: 14, nome: "Bolsa Maya", preco: 39.90, foto: "1zXtLttvLh2p5IM8Yn-lY-zi5wRCzTL6-" },
+            { id: 15, nome: "Bolsa Mia", preco: 39.90, foto: "1zyZeFCfXDzR6tVoN48ZtoKLLYWlAywaE" },
+            { id: 16, nome: "Bolsa Suely", preco: 31.49, foto: "1OjHY0EHewYGoz6N_Dwvew0fBXF9rKVvJ" },
+            { id: 17, nome: "Bolsa Vitoria", preco: 39.90, foto: "1AUIImcXP6XwaqLEl_P6NvU5RK8nJNWf3" },
+            { id: 18, nome: "Carteira", preco: 15.90, foto: "1Dayic6UtKTnq75a-clc2gzBGDOT7FtUB" },
+            { id: 19, nome: "Bolsa Valentina", preco: 39.90, foto: "1ijRGne1D4V5APChcbtqvijNOQPdBYOue" }
         ];
 
-        // =============================================
-        // FUNÇÃO PARA TOGGLE FAQ
-        // =============================================
-        function toggleFaq(element) {
-            element.classList.toggle('active');
-        }
-
-        // =============================================
-        // INICIALIZAÇÃO
-        // =============================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar produtos
-            const grid = document.getElementById('gridLoja');
-            produtos.forEach((p, index) => {
-                const isEsgotado = p.esgotado || false;
-                
-                if (p.id === 10) { // Bolsa Helena com variações
-                    grid.innerHTML += criarProdutoComVariacoes(p, index);
-                } else {
-                    const btnHTML = isEsgotado 
-                        ? `<button class="btn-esgotado" disabled>ESGOTADO</button>`
-                        : `<button onclick="adicionarAoCarrinho(${p.id})" class="add-btn">ADICIONAR</button>`;
-                    
-                    grid.innerHTML += `
-                        <div class="product-card animate__animated animate__fadeInUp ${isEsgotado ? 'esgotado' : ''}" style="animation-delay:${index*0.05}s">
-                            <div class="img-box">
-                                <img src="https://drive.google.com/thumbnail?id=${p.foto}&sz=w1000" alt="${p.nome}" onerror="this.src='https://placehold.co/400x500/111/fff?text=${p.nome}'">
-                            </div>
-                            <div class="info-box">
-                                <h3 style="font-family:'Syncopate'; font-size:0.65rem; margin-bottom:5px;">${p.nome}</h3>
-                                <span class="price">R$ ${p.preco.toFixed(2)}</span>
-                                ${btnHTML}
-                            </div>
-                        </div>`;
-                }
-            });
-
-            // Máscaras para os inputs
-            document.getElementById('clienteCEP').addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 5) {
-                    value = value.substring(0,5) + '-' + value.substring(5,8);
-                }
-                e.target.value = value;
-            });
-
-            document.getElementById('clienteWhats').addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 11) value = value.substring(0,11);
-                e.target.value = value;
-            });
-
-            // CEP não é obrigatório mais (pode ser retirada)
-            document.getElementById('clienteCEP').required = false;
-            document.getElementById('clienteNum').required = false;
-
-            // Inicializar botões de FAQ
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.onclick = function() {
-                    this.classList.toggle('active');
-                };
-            });
-
-            // Inicializar carrosséis
-            setTimeout(() => {
-                produtos.forEach(p => {
-                    if (p.id === 10) {
-                        inicializarCarrossel(p.id);
-                    }
+            renderizarProdutos();
+            
+            // FAQ toggle
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', function() {
+                    this.parentElement.classList.toggle('active');
                 });
-            }, 100);
+            });
         });
 
-        // =============================================
-        // FUNÇÃO PARA CRIAR PRODUTO COM VARAIAÇÕES
-        // =============================================
+        function renderizarProdutos() {
+            const grid = document.getElementById('productsGrid');
+            
+            produtos.forEach((produto, index) => {
+                if (produto.variacoes) {
+                    grid.innerHTML += criarProdutoComVariacoes(produto, index);
+                } else {
+                    grid.innerHTML += `
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://drive.google.com/thumbnail?id=${produto.foto}&sz=w1000" alt="${produto.nome}" loading="lazy">
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-name">${produto.nome}</h3>
+                                <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+                                <div class="product-actions">
+                                    <button class="btn btn-primary" onclick="adicionarAoCarrinho(${produto.id})">
+                                        <i class="fas fa-shopping-cart"></i> Comprar
+                                    </button>
+                                    <button class="btn btn-outline" onclick="verProduto(${produto.id})">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            // Inicializar Swipers
+            setTimeout(() => {
+                document.querySelectorAll('.swiper').forEach((el, index) => {
+                    new Swiper(el, {
+                        pagination: {
+                            el: el.nextElementSibling?.querySelector('.swiper-pagination'),
+                            clickable: true
+                        },
+                        autoplay: {
+                            delay: 3000,
+                        },
+                    });
+                });
+            }, 100);
+        }
+
         function criarProdutoComVariacoes(produto, index) {
-            const carouselId = `carousel-${produto.id}`;
+            let slides = '';
+            let cores = '';
             
-            let html = `
-                <div class="product-card animate__animated animate__fadeInUp" style="animation-delay:${index*0.05}s">
-                    <div class="img-box">
-                        <div class="carousel-container" id="${carouselId}">
-                            <div class="carousel-track">`;
-            
-            // Adicionar slides para cada variação
             produto.variacoes.forEach((variacao, i) => {
-                html += `
-                    <div class="carousel-slide">
-                        <img src="https://drive.google.com/thumbnail?id=${variacao.foto}&sz=w1000" alt="${produto.nome} - ${variacao.cor}" 
-                             onerror="this.src='https://placehold.co/400x500/111/fff?text=${produto.nome}'"
-                             loading="lazy">
-                    </div>`;
+                slides += `
+                    <div class="swiper-slide">
+                        <img src="https://drive.google.com/thumbnail?id=${variacao.foto}&sz=w1000" alt="${produto.nome} - ${variacao.cor}">
+                    </div>
+                `;
+                
+                cores += `
+                    <div class="color-dot" style="background-color: ${variacao.codigoCor};" 
+                         onclick="selecionarCor(${produto.id}, ${i})" data-index="${i}"></div>
+                `;
             });
             
-            html += `
+            return `
+                <div class="product-card" id="produto-${produto.id}">
+                    <div class="product-image">
+                        <div class="swiper swiper-${produto.id}">
+                            <div class="swiper-wrapper">
+                                ${slides}
                             </div>
-                            <div class="carousel-nav">
-                                <button class="carousel-btn prev-btn" onclick="prevSlide(${produto.id})">❮</button>
-                                <button class="carousel-btn next-btn" onclick="nextSlide(${produto.id})">❯</button>
-                            </div>
-                            <div class="carousel-dots" id="dots-${produto.id}"></div>
                         </div>
                     </div>
-                    <div class="info-box">
-                        <h3 style="font-family:'Syncopate'; font-size:0.65rem; margin-bottom:5px;">${produto.nome}</h3>
-                        <div class="color-selector" id="color-selector-${produto.id}">`;
-            
-            // Adicionar opções de cor
-            produto.variacoes.forEach((variacao, i) => {
-                html += `
-                    <div class="color-option" style="background-color:${variacao.codigoCor};" 
-                         onclick="selectColor(${produto.id}, ${i})"
-                         title="${variacao.cor}"
-                         data-index="${i}">
-                    </div>`;
-            });
-            
-            html += `
+                    <div class="swiper-pagination-${produto.id}"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">${produto.nome}</h3>
+                        <div class="color-selector" id="cores-${produto.id}">
+                            ${cores}
                         </div>
-                        <span class="price">R$ ${produto.preco.toFixed(2)}</span>
-                        <button onclick="adicionarAoCarrinho(${produto.id})" class="add-btn">ADICIONAR</button>
+                        <div class="product-price">R$ ${produto.preco.toFixed(2)}</div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="adicionarAoCarrinho(${produto.id})">
+                                <i class="fas fa-shopping-cart"></i> Comprar
+                            </button>
+                        </div>
                     </div>
-                </div>`;
-            
-            return html;
+                </div>
+            `;
         }
 
-        // =============================================
-        // INICIALIZAR CARROSSEL
-        // =============================================
-        function inicializarCarrossel(produtoId) {
-            const produto = produtos.find(p => p.id === produtoId);
-            if (!produto || !produto.variacoes) return;
-            
-            const dotsContainer = document.getElementById(`dots-${produtoId}`);
-            if (!dotsContainer) return;
-            
-            // Criar dots
-            dotsContainer.innerHTML = '';
-            produto.variacoes.forEach((_, i) => {
-                const dot = document.createElement('div');
-                dot.className = 'carousel-dot';
-                if (i === 0) dot.classList.add('active');
-                dot.onclick = () => selectColor(produtoId, i);
-                dotsContainer.appendChild(dot);
+        function selecionarCor(produtoId, index) {
+            document.querySelectorAll(`#cores-${produtoId} .color-dot`).forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
             });
             
-            // Selecionar primeira cor
-            selectColor(produtoId, 0);
-        }
-
-        // =============================================
-        // FUNÇÕES DO CARROSSEL DE CORES
-        // =============================================
-        function nextSlide(produtoId) {
-            const produto = produtos.find(p => p.id === produtoId);
-            if (!produto || !produto.variacoes) return;
-            
-            const carousel = document.getElementById(`carousel-${produtoId}`);
-            if (!carousel) return;
-            
-            const track = carousel.querySelector('.carousel-track');
-            const slides = track.querySelectorAll('.carousel-slide');
-            const currentSlide = carouselStates[produtoId] || 0;
-            const nextSlide = (currentSlide + 1) % slides.length;
-            
-            track.style.transform = `translateX(-${nextSlide * 100}%)`;
-            carouselStates[produtoId] = nextSlide;
-            
-            updateCarouselDots(produtoId, nextSlide);
-            updateColorSelection(produtoId, nextSlide);
-        }
-
-        function prevSlide(produtoId) {
-            const produto = produtos.find(p => p.id === produtoId);
-            if (!produto || !produto.variacoes) return;
-            
-            const carousel = document.getElementById(`carousel-${produtoId}`);
-            if (!carousel) return;
-            
-            const track = carousel.querySelector('.carousel-track');
-            const slides = track.querySelectorAll('.carousel-slide');
-            const currentSlide = carouselStates[produtoId] || 0;
-            const prevSlide = (currentSlide - 1 + slides.length) % slides.length;
-            
-            track.style.transform = `translateX(-${prevSlide * 100}%)`;
-            carouselStates[produtoId] = prevSlide;
-            
-            updateCarouselDots(produtoId, prevSlide);
-            updateColorSelection(produtoId, prevSlide);
-        }
-
-        function selectColor(produtoId, colorIndex) {
-            const produto = produtos.find(p => p.id === produtoId);
-            if (!produto || !produto.variacoes) return;
-            
-            const carousel = document.getElementById(`carousel-${produtoId}`);
-            if (!carousel) return;
-            
-            const track = carousel.querySelector('.carousel-track');
-            track.style.transform = `translateX(-${colorIndex * 100}%)`;
-            carouselStates[produtoId] = colorIndex;
-            
-            updateCarouselDots(produtoId, colorIndex);
-            updateColorSelection(produtoId, colorIndex);
-        }
-
-        function updateCarouselDots(produtoId, activeIndex) {
-            const dotsContainer = document.getElementById(`dots-${produtoId}`);
-            if (!dotsContainer) return;
-            
-            const dots = dotsContainer.querySelectorAll('.carousel-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === activeIndex);
-            });
-        }
-
-        function updateColorSelection(produtoId, activeIndex) {
-            const colorOptions = document.querySelectorAll(`#color-selector-${produtoId} .color-option`);
-            colorOptions.forEach((option, index) => {
-                option.classList.toggle('selected', index === activeIndex);
-            });
-        }
-
-        // =============================================
-        // FUNÇÕES DO CARRINHO
-        // =============================================
-        function toggleCart() { 
-            document.getElementById('cartModal').classList.toggle('active');
-            atualizarCarrinho();
+            const swiper = document.querySelector(`.swiper-${produtoId}`).swiper;
+            if (swiper) {
+                swiper.slideTo(index);
+            }
         }
 
         function adicionarAoCarrinho(id) {
-            const p = produtos.find(item => item.id === id);
+            const produto = produtos.find(p => p.id === id);
             
-            if (p.esgotado) {
-                mostrarNotificacao("Este produto está esgotado no momento!");
-                return;
-            }
-            
-            // Para produtos com variações (Bolsa Helena)
-            if (p.id === 10) {
-                const currentSlide = carouselStates[p.id] || 0;
-                const selectedColor = p.variacoes[currentSlide];
+            if (produto.variacoes) {
+                const corSelecionada = document.querySelector(`#cores-${id} .color-dot.active`);
+                if (!corSelecionada) {
+                    mostrarNotificacao("Selecione uma cor");
+                    return;
+                }
                 
-                const existe = carrinho.find(item => 
-                    item.id === id && 
-                    item.cor === selectedColor.cor
+                const index = parseInt(corSelecionada.dataset.index);
+                const variacao = produto.variacoes[index];
+                
+                const itemExistente = carrinho.find(item => 
+                    item.id === id && item.cor === variacao.cor
                 );
                 
-                if(existe) {
-                    existe.qtd++;
+                if (itemExistente) {
+                    itemExistente.qtd++;
                 } else {
                     carrinho.push({
-                        ...p, 
+                        ...produto,
                         qtd: 1,
-                        cor: selectedColor.cor,
-                        codigoCor: selectedColor.codigoCor,
-                        foto: selectedColor.foto,
-                        nomeCompleto: `${p.nome} - ${selectedColor.cor}`
+                        cor: variacao.cor,
+                        foto: variacao.foto,
+                        nomeCompleto: `${produto.nome} - ${variacao.cor}`
                     });
                 }
             } else {
-                // Produtos sem variações
-                const existe = carrinho.find(item => item.id === id);
-                if(existe) {
-                    existe.qtd++;
+                const itemExistente = carrinho.find(item => item.id === id);
+                
+                if (itemExistente) {
+                    itemExistente.qtd++;
                 } else {
-                    carrinho.push({...p, qtd: 1, nomeCompleto: p.nome});
+                    carrinho.push({...produto, qtd: 1, nomeCompleto: produto.nome, foto: produto.foto});
                 }
             }
             
             atualizarCarrinho();
-            mostrarNotificacao(`${p.nome} adicionado ao carrinho!`);
-            toggleCart();
+            mostrarNotificacao(`${produto.nome} adicionado ao carrinho!`);
         }
 
-        function mudarQtd(id, cor, delta) {
-            const item = carrinho.find(i => i.id === id && i.cor === cor);
-            if(item) {
-                item.qtd += delta;
-                if(item.qtd <= 0) {
-                    carrinho = carrinho.filter(i => !(i.id === id && i.cor === cor));
-                }
-                atualizarCarrinho();
-            }
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+            atualizarCarrinho();
         }
 
         function atualizarCarrinho() {
             const container = document.getElementById('cartItems');
             let subtotal = 0;
             let totalItens = 0;
+            
             container.innerHTML = "";
             
             if (carrinho.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#888; font-size:0.8rem;">Carrinho vazio</p>';
+                container.innerHTML = '<p style="text-align: center; color: var(--gray);">Carrinho vazio</p>';
             } else {
                 carrinho.forEach(item => {
-                    const itemTotal = (item.preco * item.qtd);
+                    const itemTotal = item.preco * item.qtd;
                     subtotal += itemTotal;
                     totalItens += item.qtd;
                     
-                    const displayName = item.nomeCompleto || item.nome;
-                    
-                    if (item.cor) {
-                        // Produto com cor
-                        container.innerHTML += `
-                            <div style="margin-bottom:12px; font-size:0.75rem;">
-                                <div style="display:flex; justify-content:space-between; align-items:center;">
-                                    <div style="flex:1;">
-                                        <span>${displayName}</span>
-                                        <div class="cart-item-color">
-                                            <div class="cart-color-preview" style="background-color:${item.codigoCor}"></div>
-                                            <span class="color-badge">${item.cor}</span>
-                                        </div>
-                                        <span style="color:var(--neon-pink)">R$ ${itemTotal.toFixed(2)}</span>
-                                    </div>
-                                    <div style="display:flex; align-items:center; gap:8px;">
-                                        <button class="qty-btn" onclick="mudarQtd(${item.id}, '${item.cor}', -1)">-</button>
-                                        <span>${item.qtd}</span>
-                                        <button class="qty-btn" onclick="mudarQtd(${item.id}, '${item.cor}', 1)">+</button>
-                                    </div>
-                                </div>
-                            </div>`;
-                    } else {
-                        // Produto sem cor
-                        container.innerHTML += `
-                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-size:0.75rem;">
-                                <div style="flex:1;">
-                                    <span>${displayName}</span><br>
-                                    <span style="color:var(--neon-pink)">R$ ${itemTotal.toFixed(2)}</span>
-                                </div>
-                                <div style="display:flex; align-items:center; gap:8px;">
-                                    <button class="qty-btn" onclick="mudarQtd(${item.id}, '', -1)">-</button>
+                    container.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-image">
+                                <img src="https://drive.google.com/thumbnail?id=${item.foto}&sz=w1000" alt="${item.nome}">
+                            </div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">${item.nomeCompleto || item.nome}</div>
+                                ${item.cor ? `<div class="cart-item-color">Cor: ${item.cor}</div>` : ''}
+                                <div class="cart-item-price">R$ ${itemTotal.toFixed(2)}</div>
+                                <div class="cart-item-actions">
+                                    <button class="qty-btn" onclick="mudarQtd(${item.id}, '${item.cor || ''}', -1)">-</button>
                                     <span>${item.qtd}</span>
-                                    <button class="qty-btn" onclick="mudarQtd(${item.id}, '', 1)">+</button>
+                                    <button class="qty-btn" onclick="mudarQtd(${item.id}, '${item.cor || ''}', 1)">+</button>
                                 </div>
-                            </div>`;
-                    }
+                            </div>
+                        </div>
+                    `;
                 });
             }
             
-            // Atualizar total
-            let total = subtotal + (freteSelecionado ? parseFloat(freteSelecionado.price) : 0);
-            totalPedido = total;
-            
-            document.getElementById('cartTotal').innerText = `R$ ${total.toFixed(2)}`;
             document.getElementById('cartCount').innerText = totalItens;
             
-            // Ativar/desativar botão WhatsApp
-            const temProdutos = carrinho.length > 0;
-            const dadosValidos = validarDadosBasicos();
+            const total = subtotal;
+            document.getElementById('cartTotal').innerText = `R$ ${total.toFixed(2)}`;
             
-            document.getElementById('whatsappButton').disabled = !(temProdutos && dadosValidos);
+            const dadosValidos = document.getElementById('clienteNome').value && 
+                                 document.getElementById('clienteWhats').value &&
+                                 document.getElementById('clienteNumero').value;
+            
+            document.getElementById('whatsappButton').disabled = !(carrinho.length > 0 && dadosValidos);
         }
 
-        // =============================================
-        // FUNÇÕES DE FRETE/ENTREGA - ATUALIZADO PARA VALORES REAIS
-        // =============================================
-        async function calcularFrete() {
-            const cepDestino = document.getElementById('clienteCEP').value.replace(/\D/g, '');
+        function mudarQtd(id, cor, delta) {
+            const item = carrinho.find(i => i.id === id && (i.cor || '') === cor);
             
-            // Se CEP vazio, mostrar apenas opção de retirada
-            if (!cepDestino) {
-                opcoesFrete = [{
-                    id: 'retirada',
-                    name: '🏪 Retirar na Rua Olinda 660 - Brasilândia - Franca/SP',
-                    price: 0,
-                    deadline: 'A partir das 18:00h',
-                    company: 'Retirada'
-                }];
+            if (item) {
+                item.qtd += delta;
                 
-                document.getElementById('freteList').innerHTML = '';
-                document.getElementById('freteOptions').style.display = 'block';
-                exibirOpcoesFrete();
-                return;
-            }
-            
-            if (cepDestino.length !== 8) {
-                mostrarNotificacao("Digite um CEP válido com 8 dígitos");
-                return;
-            }
-            
-            if (carrinho.length === 0) {
-                mostrarNotificacao("Adicione produtos ao carrinho primeiro");
-                return;
-            }
-            
-            // Mostrar loader
-            document.getElementById('freteList').innerHTML = '<div class="loader"></div>';
-            document.getElementById('freteOptions').style.display = 'block';
-            
-            try {
-                // Buscar endereço pelo CEP
-                const enderecoResponse = await fetch(`https://viacep.com.br/ws/${cepDestino}/json/`);
-                const enderecoData = await enderecoResponse.json();
-                
-                if (enderecoData.erro) {
-                    throw new Error("CEP não encontrado");
+                if (item.qtd <= 0) {
+                    carrinho = carrinho.filter(i => !(i.id === id && (i.cor || '') === cor));
                 }
                 
-                // Preencher campos de endereço
-                document.getElementById('clienteEnd').value = enderecoData.logradouro || "";
-                document.getElementById('clienteBairro').value = enderecoData.bairro || "";
-                document.getElementById('clienteCidade').value = enderecoData.localidade || "";
-                document.getElementById('clienteEstado').value = enderecoData.uf || "";
-                
-                // Calcular quantidade total de produtos (para cálculo de volume)
-                const quantidadeTotal = carrinho.reduce((total, item) => total + item.qtd, 0);
-                
-                // Opções de entrega (sempre inclui retirada)
-                opcoesFrete = [{
-                    id: 'retirada',
-                    name: '🏪 Retirar na Rua Olinda 660 - Brasilândia - Franca/SP',
-                    price: 0,
-                    deadline: 'A partir das 18:00h',
-                    company: 'Retirada'
-                }];
-                
-                // Se for Franca, não mostra opções de frete (só retirada)
-                if (cepDestino.startsWith("14400")) {
-                    mostrarNotificacao("Para Franca/SP recomendamos retirada no local.");
-                    exibirOpcoesFrete();
-                    return;
-                }
-                
-                // Calcular frete baseado na região (valores atualizados 2024)
-                const regiao = getRegiaoByCEP(cepDestino);
-                const freteCalculado = calcularFretePorRegiao(regiao, quantidadeTotal);
-                
-                if (freteCalculado.pac) {
-                    opcoesFrete.push({
-                        id: 'pac',
-                        name: '📦 PAC',
-                        price: freteCalculado.pac,
-                        deadline: freteCalculado.prazoPac,
-                        company: 'Correios'
-                    });
-                }
-                
-                if (freteCalculado.sedex) {
-                    opcoesFrete.push({
-                        id: 'sedex',
-                        name: '🚚 SEDEX',
-                        price: freteCalculado.sedex,
-                        deadline: freteCalculado.prazoSedex,
-                        company: 'Correios'
-                    });
-                }
-                
-                exibirOpcoesFrete();
-                
-            } catch (error) {
-                console.error("Erro:", error);
-                mostrarNotificacao("CEP não encontrado. Use apenas retirada.");
-                
-                // Mostrar apenas retirada
-                opcoesFrete = [{
-                    id: 'retirada',
-                    name: '🏪 Retirar na Rua Olinda 660 - Brasilândia - Franca/SP',
-                    price: 0,
-                    deadline: 'A partir das 18:00h',
-                    company: 'Retirada'
-                }];
-                
-                exibirOpcoesFrete();
+                atualizarCarrinho();
             }
         }
 
-        function getRegiaoByCEP(cep) {
-            const uf = cep.substring(0, 1);
-            const regiao = cep.substring(0, 3);
-            
-            // SP Capital e Grande SP
-            if (cep.startsWith("010") || cep.startsWith("011") || cep.startsWith("012") || 
-                cep.startsWith("013") || cep.startsWith("014") || cep.startsWith("015") ||
-                cep.startsWith("020") || cep.startsWith("021") || cep.startsWith("022") ||
-                cep.startsWith("023") || cep.startsWith("024") || cep.startsWith("025") ||
-                cep.startsWith("026") || cep.startsWith("027") || cep.startsWith("028") ||
-                cep.startsWith("029") || cep.startsWith("030") || cep.startsWith("031") ||
-                cep.startsWith("032") || cep.startsWith("033") || cep.startsWith("034") ||
-                cep.startsWith("035") || cep.startsWith("036") || cep.startsWith("037") ||
-                cep.startsWith("038") || cep.startsWith("039") || cep.startsWith("040") ||
-                cep.startsWith("041") || cep.startsWith("042") || cep.startsWith("043") ||
-                cep.startsWith("044") || cep.startsWith("045") || cep.startsWith("046") ||
-                cep.startsWith("047") || cep.startsWith("048") || cep.startsWith("049") ||
-                cep.startsWith("050") || cep.startsWith("051") || cep.startsWith("052") ||
-                cep.startsWith("053") || cep.startsWith("054") || cep.startsWith("055") ||
-                cep.startsWith("056") || cep.startsWith("057") || cep.startsWith("058") ||
-                cep.startsWith("059") || cep.startsWith("060") || cep.startsWith("061") ||
-                cep.startsWith("062") || cep.startsWith("063") || cep.startsWith("064") ||
-                cep.startsWith("065") || cep.startsWith("066") || cep.startsWith("067") ||
-                cep.startsWith("068") || cep.startsWith("069") || cep.startsWith("070") ||
-                cep.startsWith("071") || cep.startsWith("072") || cep.startsWith("073") ||
-                cep.startsWith("074") || cep.startsWith("075") || cep.startsWith("076") ||
-                cep.startsWith("077") || cep.startsWith("078") || cep.startsWith("079") ||
-                cep.startsWith("080") || cep.startsWith("081") || cep.startsWith("082") ||
-                cep.startsWith("083") || cep.startsWith("084") || cep.startsWith("085") ||
-                cep.startsWith("086") || cep.startsWith("087") || cep.startsWith("088") ||
-                cep.startsWith("089") || cep.startsWith("090") || cep.startsWith("091") ||
-                cep.startsWith("092") || cep.startsWith("093") || cep.startsWith("094") ||
-                cep.startsWith("095") || cep.startsWith("096") || cep.startsWith("097") ||
-                cep.startsWith("098") || cep.startsWith("099")) {
-                return "sp_capital";
-            }
-            
-            // Interior SP
-            if (cep.startsWith("14")) return "sp_interior";
-            
-            // Sul (PR, SC, RS)
-            if (cep.startsWith("8")) return "sul";
-            
-            // Nordeste
-            if (cep.startsWith("4") || cep.startsWith("5") || cep.startsWith("6")) return "nordeste";
-            
-            // Centro-Oeste
-            if (cep.startsWith("7")) return "centro_oeste";
-            
-            // Norte
-            if (cep.startsWith("66") || cep.startsWith("67") || cep.startsWith("68") || 
-                cep.startsWith("69")) return "norte";
-                
-            return "outros";
-        }
-
-        function calcularFretePorRegiao(regiao, quantidade) {
-            // VALORES ATUALIZADOS 2024 baseados no site dos Correios
-            // Dimensões: 10x20x20cm, peso por unidade: ~0.4kg
-            
-            let pac, sedex, prazoPac, prazoSedex;
-            
-            switch(regiao) {
-                case "sp_capital":
-                    pac = 15.50 + (quantidade * 5.00);
-                    sedex = 25.90 + (quantidade * 8.00);
-                    prazoPac = "2-3 dias úteis";
-                    prazoSedex = "1 dia útil";
-                    break;
-                    
-                case "sp_interior":
-                    pac = 18.50 + (quantidade * 6.00);
-                    sedex = 28.90 + (quantidade * 10.00);
-                    prazoPac = "3-4 dias úteis";
-                    prazoSedex = "2 dias úteis";
-                    break;
-                    
-                case "sul":
-                    pac = 22.50 + (quantidade * 7.00);
-                    sedex = 35.90 + (quantidade * 12.00);
-                    prazoPac = "4-6 dias úteis";
-                    prazoSedex = "3-4 dias úteis";
-                    break;
-                    
-                case "nordeste":
-                    pac = 28.50 + (quantidade * 9.00);
-                    sedex = 42.90 + (quantidade * 15.00);
-                    prazoPac = "6-8 dias úteis";
-                    prazoSedex = "4-6 dias úteis";
-                    break;
-                    
-                case "centro_oeste":
-                    pac = 25.50 + (quantidade * 8.00);
-                    sedex = 38.90 + (quantidade * 14.00);
-                    prazoPac = "5-7 dias úteis";
-                    prazoSedex = "3-5 dias úteis";
-                    break;
-                    
-                case "norte":
-                    pac = 32.50 + (quantidade * 11.00);
-                    sedex = 48.90 + (quantidade * 18.00);
-                    prazoPac = "8-10 dias úteis";
-                    prazoSedex = "5-8 dias úteis";
-                    break;
-                    
-                default:
-                    pac = 20.00 + (quantidade * 6.00);
-                    sedex = 32.00 + (quantidade * 10.00);
-                    prazoPac = "4-6 dias úteis";
-                    prazoSedex = "3-4 dias úteis";
-            }
-            
-            // Arredondar para 2 casas decimais
-            pac = Math.round(pac * 100) / 100;
-            sedex = Math.round(sedex * 100) / 100;
-            
-            return {
-                pac: pac,
-                sedex: sedex,
-                prazoPac: prazoPac,
-                prazoSedex: prazoSedex
-            };
-        }
-
-        function exibirOpcoesFrete() {
-            const container = document.getElementById('freteList');
-            container.innerHTML = '';
-            
-            opcoesFrete.forEach((frete, index) => {
-                const div = document.createElement('div');
-                div.className = 'frete-option';
-                if (index === 0) {
-                    div.classList.add('selected');
-                    selecionarFrete(frete);
-                }
-                
-                div.innerHTML = `
-                    <div>
-                        <div class="frete-name">${frete.name}</div>
-                        <div class="frete-prazo">${frete.company} • ${frete.deadline}</div>
-                    </div>
-                    <div class="frete-price">R$ ${frete.price.toFixed(2)}</div>
-                `;
-                
-                div.onclick = () => {
-                    document.querySelectorAll('.frete-option').forEach(el => el.classList.remove('selected'));
-                    div.classList.add('selected');
-                    selecionarFrete(frete);
-                };
-                
-                container.appendChild(div);
-            });
-        }
-
-        function selecionarFrete(frete) {
-            freteSelecionado = frete;
-            atualizarCarrinho();
-        }
-
-        // =============================================
-        // ENVIAR PEDIDO PARA WHATSAPP COM LINK MERCADO PAGO
-        // =============================================
         function enviarPedidoWhatsApp() {
-            if (!validarDadosCliente()) return;
+            if (!validarDados()) return;
             
-            if (carrinho.length === 0) {
-                mostrarNotificacao("Adicione produtos ao carrinho");
-                return;
-            }
-            
-            // Gerar número do pedido
             const numeroPedido = `P${Date.now().toString().slice(-6)}`;
-            ultimoPedidoNumero = numeroPedido;
+            const total = carrinho.reduce((sum, item) => sum + (item.preco * item.qtd), 0);
             
-            // Calcular totais
-            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.qtd), 0);
-            const valorFrete = freteSelecionado ? freteSelecionado.price : 0;
-            const total = subtotal + valorFrete;
+            // Buscar dados do cliente
+            const nome = document.getElementById('clienteNome').value;
+            const whats = document.getElementById('clienteWhats').value;
+            const cep = document.getElementById('clienteCEP').value || "Não informado";
+            const numero = document.getElementById('clienteNumero').value;
+            const complemento = document.getElementById('clienteComplemento').value || "Não informado";
             
-            // Gerar link do Mercado Pago com o valor total
-            const valorEmCentavos = Math.round(total * 100);
-            const linkMercadoPago = `${MERCADO_PAGO_LINK_BASE}?amount=${valorEmCentavos}`;
+            // Montar mensagem formatada com emojis
+            let mensagem = `🛍️ *LADIES BOUTIQUE - NOVO PEDIDO* 🛍️\n`;
+            mensagem += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
             
-            // MENSAGEM PARA O SEU WHATSAPP
-            let msgParaVoce = `🛍️ *NOVO PEDIDO - LADIES BOUTIQUE*`;
-            msgParaVoce += `\n`;
-            msgParaVoce += `\n📋 *Nº PEDIDO:* ${numeroPedido}`;
-            msgParaVoce += `\n📅 *DATA:* ${new Date().toLocaleString('pt-BR')}`;
-            msgParaVoce += `\n`;
-            msgParaVoce += `\n═════════════════════════`;
-            msgParaVoce += `\n🛒 *PRODUTOS VENDIDOS*`;
-            msgParaVoce += `\n`;
+            mensagem += `📋 *PEDIDO Nº:* ${numeroPedido}\n`;
+            mensagem += `📅 *Data:* ${new Date().toLocaleString('pt-BR')}\n\n`;
             
-            carrinho.forEach((item, index) => {
-                const itemName = item.nomeCompleto || item.nome;
-                msgParaVoce += `\n${index + 1}. ${itemName}`;
-                msgParaVoce += `\n   Quantidade: ${item.qtd}x`;
-                msgParaVoce += `\n   Preço unitário: R$ ${item.preco.toFixed(2)}`;
-                msgParaVoce += `\n   Subtotal: R$ ${(item.preco * item.qtd).toFixed(2)}`;
-                msgParaVoce += `\n`;
+            mensagem += `━━━━━ 🛒 *PRODUTOS* ━━━━━\n`;
+            carrinho.forEach(item => {
+                mensagem += `\n▪️ ${item.nomeCompleto || item.nome}\n`;
+                mensagem += `   ➤ Quantidade: ${item.qtd}\n`;
+                mensagem += `   ➤ Valor: R$ ${(item.preco * item.qtd).toFixed(2)}\n`;
             });
             
-            msgParaVoce += `\n═════════════════════════`;
-            msgParaVoce += `\n👤 *DADOS DO CLIENTE*`;
-            msgParaVoce += `\nNome: ${document.getElementById('clienteNome').value}`;
-            msgParaVoce += `\nEmail: ${document.getElementById('clienteEmail').value}`;
-            msgParaVoce += `\nWhatsApp: ${document.getElementById('clienteWhats').value}`;
-            msgParaVoce += `\n`;
+            mensagem += `\n━━━━━ 👤 *CLIENTE* ━━━━━\n`;
+            mensagem += `\n▪️ Nome: ${nome}`;
+            mensagem += `\n▪️ WhatsApp: ${whats}`;
+            mensagem += `\n▪️ CEP: ${cep}`;
+            mensagem += `\n▪️ Número: ${numero}`;
+            mensagem += `\n▪️ Complemento: ${complemento}\n`;
             
-            // Verificar se é retirada ou entrega
-            const endereco = document.getElementById('clienteEnd').value;
-            const numero = document.getElementById('clienteNum').value;
+            mensagem += `\n━━━━━ 💰 *TOTAL* ━━━━━\n`;
+            mensagem += `\n💎 *R$ ${total.toFixed(2)}*\n\n`;
             
-            if (endereco && numero) {
-                msgParaVoce += `\n═════════════════════════`;
-                msgParaVoce += `\n📍 *ENDEREÇO DE ENTREGA*`;
-                msgParaVoce += `\nRua: ${endereco}`;
-                
-                if (numero) {
-                    msgParaVoce += `, ${numero}`;
-                }
-                
-                const complemento = document.getElementById('clienteComplemento').value;
-                if (complemento) {
-                    msgParaVoce += `\nComplemento: ${complemento}`;
-                }
-                
-                const bairro = document.getElementById('clienteBairro').value;
-                if (bairro) {
-                    msgParaVoce += `\nBairro: ${bairro}`;
-                }
-                
-                const cidade = document.getElementById('clienteCidade').value;
-                const estado = document.getElementById('clienteEstado').value;
-                if (cidade) {
-                    msgParaVoce += `\nCidade: ${cidade}`;
-                    if (estado) {
-                        msgParaVoce += ` - ${estado}`;
-                    }
-                }
-                
-                const cep = document.getElementById('clienteCEP').value;
-                if (cep) {
-                    msgParaVoce += `\nCEP: ${cep}`;
-                }
-            } else {
-                msgParaVoce += `\n═════════════════════════`;
-                msgParaVoce += `\n📍 *TIPO DE ENTREGA*`;
-                msgParaVoce += `\n🏪 RETIRADA NO LOCAL`;
-                msgParaVoce += `\nRua Olinda 660 - Brasilândia - Franca/SP`;
-                msgParaVoce += `\nA partir das 18:00h`;
-            }
+            mensagem += `━━━━━━━━━━━━━━━━━━━━━\n`;
+            mensagem += `✨ *Agradecemos pela preferência!* ✨\n`;
+            mensagem += `📱 *Retornaremos em breve para confirmar seu pedido.*`;
             
-            msgParaVoce += `\n`;
-            msgParaVoce += `\n═════════════════════════`;
-            msgParaVoce += `\n🚚 *FRETE*`;
+            // Abrir WhatsApp em nova aba (sem sair do site)
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`, '_blank');
             
-            if (freteSelecionado) {
-                if (freteSelecionado.id === 'retirada') {
-                    msgParaVoce += `\n${freteSelecionado.name}`;
-                    msgParaVoce += `\nValor: R$ ${freteSelecionado.price.toFixed(2)}`;
-                } else {
-                    msgParaVoce += `\nTipo: ${freteSelecionado.name}`;
-                    msgParaVoce += `\nTransportadora: ${freteSelecionado.company}`;
-                    msgParaVoce += `\nValor: R$ ${freteSelecionado.price.toFixed(2)}`;
-                    msgParaVoce += `\nPrazo: ${freteSelecionado.deadline}`;
-                }
-            } else {
-                msgParaVoce += `\nA combinar`;
-            }
+            mostrarNotificacao("Pedido enviado com sucesso!");
             
-            msgParaVoce += `\n`;
-            msgParaVoce += `\n═════════════════════════`;
-            msgParaVoce += `\n💰 *RESUMO DO PEDIDO*`;
-            msgParaVoce += `\nSubtotal: R$ ${subtotal.toFixed(2)}`;
-            msgParaVoce += `\nFrete: R$ ${valorFrete.toFixed(2)}`;
-            msgParaVoce += `\n─────────────────────────`;
-            msgParaVoce += `\n*TOTAL: R$ ${total.toFixed(2)}*`;
-            msgParaVoce += `\n`;
-            msgParaVoce += `\n═════════════════════════`;
-            msgParaVoce += `\n💳 *LINK DE PAGAMENTO*`;
-            msgParaVoce += `\n${linkMercadoPago}`;
-            msgParaVoce += `\n`;
-            msgParaVoce += `\n═════════════════════════`;
-            msgParaVoce += `\n📋 *STATUS*`;
-            msgParaVoce += `\n⏳ AGUARDANDO PAGAMENTO`;
-            msgParaVoce += `\n`;
-            msgParaVoce += `\n_Pedido enviado via site_`;
-            msgParaVoce += `\n_${new Date().toLocaleString('pt-BR')}_`;
-            
-            // Codificar a mensagem para URL
-            const mensagemCodificada = encodeURIComponent(msgParaVoce);
-            
-            // Criar link do WhatsApp
-            const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensagemCodificada}`;
-            
-            // Abrir WhatsApp em uma nova aba
-            window.open(whatsappLink, '_blank');
-            
-            // Mostrar popup informativo de instruções
-            setTimeout(() => {
-                mostrarInfoPopup(numeroPedido);
-            }, 1000);
-            
-            // Limpar carrinho após envio
+            // Limpar carrinho após enviar
             setTimeout(() => {
                 carrinho = [];
-                freteSelecionado = null;
-                atualizarCarrinho();
                 toggleCart();
-                
-                // Limpar formulário
-                document.querySelectorAll('.cart-input').forEach(input => {
-                    if (input.id !== 'clienteNome' && input.id !== 'clienteWhats') {
-                        input.value = '';
-                    }
-                });
-                document.getElementById('freteOptions').style.display = 'none';
-            }, 3000);
+                atualizarCarrinho();
+            }, 2000);
         }
 
-        // =============================================
-        // FUNÇÕES DOS POPUPS
-        // =============================================
-        function mostrarInfoPopup(numeroPedido) {
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('infoPopup').style.display = 'block';
-        }
-
-        function fecharInfoPopup() {
-            document.getElementById('infoPopup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
+        function validarDados() {
+            const nome = document.getElementById('clienteNome').value;
+            const whats = document.getElementById('clienteWhats').value.replace(/\D/g, '');
+            const numero = document.getElementById('clienteNumero').value;
             
-            // Mostrar popup de confirmação final
-            setTimeout(() => {
-                mostrarSucessoPedido(ultimoPedidoNumero);
-            }, 500);
-        }
-
-        function abrirWhatsAppDireto() {
-            if (ultimoPedidoNumero) {
-                let msgCliente = `Olá! Gostaria de acompanhar meu pedido Nº ${ultimoPedidoNumero}`;
-                const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msgCliente)}`;
-                window.open(whatsappLink, '_blank');
-            }
-            fecharInfoPopup();
-        }
-
-        function mostrarSucessoPedido(orderId) {
-            document.getElementById('orderId').textContent = orderId;
-            document.getElementById('orderPopup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-
-        function fecharPopup() {
-            document.getElementById('orderPopup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-
-        // =============================================
-        // FUNÇÕES AUXILIARES
-        // =============================================
-        function validarDadosBasicos() {
-            const nome = document.getElementById('clienteNome').value.trim();
-            const whatsapp = document.getElementById('clienteWhats').value.replace(/\D/g, '');
-            return nome.length > 3 && whatsapp.length >= 10;
-        }
-
-        function validarDadosCliente() {
-            const campos = ['clienteNome', 'clienteEmail', 'clienteWhats'];
-            
-            for (const campoId of campos) {
-                const campo = document.getElementById(campoId);
-                if (!campo.value.trim()) {
-                    mostrarNotificacao(`Preencha: ${campo.placeholder}`);
-                    campo.focus();
-                    return false;
-                }
+            if (!nome || !whats || !numero) {
+                mostrarNotificacao("Preencha Nome, WhatsApp e Número da Casa");
+                return false;
             }
             
-            if (document.getElementById('clienteWhats').value.replace(/\D/g, '').length < 10) {
-                mostrarNotificacao("Digite um WhatsApp válido com DDD");
+            if (whats.length < 10) {
+                mostrarNotificacao("WhatsApp inválido");
                 return false;
             }
             
             return true;
+        }
+
+        function verProduto(id) {
+            const produto = produtos.find(p => p.id === id);
+            mostrarNotificacao(`Ver detalhes de ${produto.nome}`);
         }
 
         function mostrarNotificacao(mensagem) {
@@ -1638,4 +1267,3 @@
     </script>
 </body>
 </html>
-
